@@ -1,16 +1,13 @@
-import { removeIngredientTag } from '../tags'
+
 
 // Tag ingredient template
 export function tagIngredientTemplate (ingredientTag) {
   const cardTemplate =
-  `
-  <p>
-    ${ingredientTag}
-    <a href='#!' onclick="${removeIngredientTag(ingredientTag)}">
-      x
+  `<li class="ingredient-tag-item tag-item">${ingredientTag}
+    <a class="ingredient-tag-item-remove" href='#!'>
+      <i class="far fa-times-circle"></i>
     </a>
-  </p>
-  `;
+  </li>`;
 
   return cardTemplate;
 }

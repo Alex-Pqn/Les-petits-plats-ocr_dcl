@@ -1,16 +1,12 @@
-import { removeUtensilTag } from '../tags'
 
 // Tag utensil template
-export function tagApplianceTemplate (utensilTag) {
+export function tagUtensilTemplate (utensilTag) {
   const cardTemplate =
-  `
-  <p>
-    ${utensilTag}
-    <a href='#!' onclick="${removeUtensilTag(utensilTag)}">
-      x
+  `<li class="utensil-tag-item tag-item">${utensilTag}
+    <a class="utensil-tag-item-remove" href='#!'>
+      <i class="far fa-times-circle"></i>
     </a>
-  </p>
-  `;
+  </li>`;
 
   return cardTemplate;
 }

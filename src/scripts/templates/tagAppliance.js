@@ -1,16 +1,13 @@
-import { removeApplianceTag } from '../tags'
+
 
 // Tag appliance template
 export function tagApplianceTemplate (applianceTag) {
   const cardTemplate =
-  `
-  <p>
-    ${applianceTag}
-    <a href='#!' onclick="${removeApplianceTag(applianceTag)}">
-      x
+  `<li class="appliance-tag-item tag-item">${applianceTag}
+    <a class="appliance-tag-item-remove" href='#!'>
+      <i class="far fa-times-circle"></i>
     </a>
-  </p>
-  `;
+  </li>`;
 
   return cardTemplate;
 }
