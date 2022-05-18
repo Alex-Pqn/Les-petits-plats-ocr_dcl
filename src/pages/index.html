@@ -7,6 +7,8 @@
 		<link href="../css/style.css" rel="stylesheet" type="text/css" />
 		<link rel="icon" href="../assets/icon.png" type="image/png">
 		<title>Les petits plats</title>
+		
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 	</head>
 	<body>
 		<header>
@@ -24,7 +26,11 @@
 						</a>
 					</label>
 				</div>
-				<div class="recipes-tags"></div>
+				<ul class="recipes-tags">
+					<div class="ingredients-tags"></div>
+					<div class="appliances-tags"></div>
+					<div class="utensils-tags"></div>
+				</ul>
 				<div class="recipes-filters">
 					<div id="ingredient-filter" class="recipes-filter">
 						<input id="ingredient-input" class="filter-input" type="text" maxlength="50" placeholder="Rechercher un ingrédient">
@@ -64,8 +70,9 @@
 			<section class="recipes-items"></section>
 		</main>
 
+
 		<!--
-				<script type="text/javascript" src="../scripts/class/recipe.js"></script>
+		<script type="text/javascript" src="../scripts/class/recipe.js"></script>
 		<script type="text/javascript" src="../scripts/events.js"></script>
 		<script type="text/javascript" src="../scripts/filters.js"></script>
 		<script type="text/javascript" src="../scripts/index.js"></script>
@@ -80,6 +87,7 @@
 		<script type="text/javascript" src="../scripts/templates/tagIngredient.js"></script>
 		<script type="text/javascript" src="../scripts/templates/tagUtensil.js"></script>
 		-->
+
 
 		<script src="../../dist/app.js.bundle.js"></script>
 	</body>
