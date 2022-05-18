@@ -1,6 +1,6 @@
 import { Recipe } from '../scripts/class/recipe'
 import { recipeTemplate } from '../scripts/templates/recipe'
-import { utensilsFilters, appliancesFilters, ingredientsFilters } from '../scripts/recipesUpdate'
+import { utensilsFilters, appliancesFilters, ingredientsFilters } from '../scripts/filters'
 
 let activeRecipesArray = []
 /**

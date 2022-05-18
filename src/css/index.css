@@ -9,8 +9,12 @@ body {
 * {
 	font-family: Arial, Helvetica, sans-serif;
 }
+ul li a, ul li {
+	text-decoration: none;
+	list-style-type: none;
+}
 
-.recipes-search, .recipes-tags, .recipes-filters {
+.recipes-search, .recipes-filters {
 	margin: 20px 0;
 }
 
@@ -44,8 +48,29 @@ body {
 }
 
 /* tags */
-.recipes-tags {
-
+.ingredients-tags, .utensils-tags, .appliances-tags, .recipes-tags {
+	padding: 0;
+	display: flex;
+	flex-wrap: wrap;
+}
+.tag-item {
+	margin-right: 15px;
+	padding: 10px 15px;
+	border-radius: .5em;
+	color: #ffff;
+	margin: 5px 7px;
+}
+.tag-item i {
+	color: white;
+}
+.appliance-tag-item {
+	background-color: rgb(140, 219, 127);
+}
+.ingredient-tag-item {
+	background-color: rgb(21, 124, 209);
+}	
+.utensil-tag-item {
+	background-color: rgb(235, 83, 83);
 }
 
 /* filters */
@@ -81,6 +106,59 @@ body {
 #utensil-filter input {
 	background-color: rgb(235, 83, 83);
 }
+.filter-modal-active {
+	display: flex!important;
+}
+.filter-input-active {
+	width: 410px!important;
+}
+.filter-input {
+	font-size: 1em;
+	padding: 15px 35px 15px 15px;
+	width: 180px;
+	height: 25px;
+	border: none;
+	border-radius: .2em;
+	color: #ffff;
+}
+.filter-input:focus {
+	outline: none;
+}
+.filter-modal {
+	position: absolute;
+	top: 53px;
+	width: 100%;
+}
+.filter-modal ul {
+	margin: 0;
+	padding: 0;
+	height: 400px;
+	display: none;
+	flex-direction: column;
+	flex-wrap: wrap;
+	align-items: flex-start;
+	justify-content: flex-start;
+	list-style-type: none;
+	overflow: hidden;
+}
+.filter-modal li {
+	margin: 6px 10px;
+}
+.filter-modal li a {
+	color: #ffff;
+}
+.filter-modal li a:hover {
+	opacity: .85;
+}
+.utensil-filter-modal {
+	background-color: rgb(235, 83, 83);
+}
+.appliance-filter-modal {
+	background-color: rgb(140, 219, 127);
+}
+.ingredient-filter-modal {
+	background-color: rgb(21, 124, 209);
+}
 
 /* items */
 .recipes-items {
@@ -111,7 +189,6 @@ body {
 	padding: 0 15px;
 }
 .recipes-item-ingredients {
-	list-style-type: none;
 	padding: 0;
 }
 .recipes-item-bottom div {
@@ -140,52 +217,4 @@ body {
 .recipes-item-time svg {
 	width: 20px;
 	margin-right: 2px;
-}
-.filter-input {
-	font-size: 1em;
-	padding: 15px 35px 15px 15px;
-	width: 180px;
-	height: 25px;
-	border: none;
-	border-radius: .2em;
-	color: #ffff;
-}
-.filter-input:focus {
-	outline: none;
-}
-.filter-modal {
-	position: absolute;
-	top: 53px;
-	width: 100%;
-}
-.filter-modal ul {
-	margin: 0;
-	padding: 0;
-	height: 400px;
-	display: none;
-	flex-direction: column;
-	flex-wrap: wrap;
-	align-items: flex-start;
-	justify-content: center;
-	list-style-type: none;
-	overflow: hidden;
-}
-.filter-modal li {
-	margin: 6px 10px;
-}
-.filter-modal li a {
-	color: #ffff;
-	text-decoration: none;
-}
-.filter-modal li a:hover {
-	opacity: .85;
-}
-.utensil-filter-modal {
-	background-color: rgb(235, 83, 83);
-}
-.appliance-filter-modal {
-	background-color: rgb(140, 219, 127);
-}
-.ingredient-filter-modal {
-	background-color: rgb(21, 124, 209);
 }
