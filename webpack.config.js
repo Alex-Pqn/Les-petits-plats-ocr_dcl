@@ -1,6 +1,9 @@
 const glob = require('glob')
 const path = require('path')
 
+// class css
+// event listeners
+
 module.exports = {
   mode: 'development',
   entry: {
@@ -10,22 +13,4 @@ module.exports = {
     filename: "[name].bundle.js",
     path: path.resolve(__dirname, "dist")
   },
-  // module: {
-  //   rules: [
-  //     {
-  //       test: require.resolve('./src/scripts/templates/filterAppliance.js'),
-  //       use: 'imports-loader?wrapper=window',
-  //     },
-  //    {
-  //      test: require.resolve('./src/scripts/tags.js'),
-  //      use:
-  //        'exports-loader?type=commonjs&exports=pushApplianceTag,multiple',
-  //    },
-  //   ],
-  // },
-  // plugins: [
-  //   new webpack.ProvidePlugin({
-  //     join: ['lodash', 'join'],
-  //   }),
-  // ],
 };
