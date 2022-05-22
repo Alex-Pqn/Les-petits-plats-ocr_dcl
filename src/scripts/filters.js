@@ -5,9 +5,9 @@ import { filterIngredientTemplate } from '../scripts/templates/filterIngredient'
 import { filterUtensilTemplate } from '../scripts/templates/filterUtensil'
 import { getNormalizedString } from '../scripts/global'
 
-export let utensilsFilters = []
-export let appliancesFilters = []
-export let ingredientsFilters = []
+export let utensilFilters = []
+export let applianceFilters = []
+export let ingredientFilters = []
 
 const ingredientsInput = document.getElementById('ingredient-input')
 const applianceInput = document.getElementById('appliance-input')
@@ -42,9 +42,9 @@ export function insertAndUpdateApplianceFilters () {
   for (let i = 0; i < applianceFilterItems.length; i++) applianceFilterItems[i].remove()
   let domToInsert = ""
 
-  appliancesFilters = new Set(appliancesFilters);
+  applianceFilters = new Set(applianceFilters);
   
-  appliancesFilters.forEach(applianceFilter => {
+  applianceFilters.forEach(applianceFilter => {
     const filterApplianceCard = filterApplianceTemplate(applianceFilter)
     domToInsert += filterApplianceCard
   });
@@ -59,8 +59,8 @@ export function insertAndUpdateApplianceFilters () {
         pushApplianceTag(applianceName)
         
         // remove filter from filters list
-        if (appliancesFilters.has(applianceName)) {
-          appliancesFilters.delete(applianceName)
+        if (applianceFilters.has(applianceName)) {
+          applianceFilters.delete(applianceName)
           for (let i = 0; i < applianceFilterItems.length; i++) {
             if (getNormalizedString(applianceFilterItems[i].textContent) === applianceName) {
               applianceFilterItems[i].remove()
@@ -77,9 +77,9 @@ export function insertAndUpdateIngredientFilters () {
   for (let i = 0; i < ingredientFilterItems.length; i++) ingredientFilterItems[i].remove()
   let domToInsert = ""
 
-  ingredientsFilters = new Set(ingredientsFilters);
+  ingredientFilters = new Set(ingredientFilters);
   
-  ingredientsFilters.forEach(ingredientFilter => {
+  ingredientFilters.forEach(ingredientFilter => {
     const filterIngredientCard = filterIngredientTemplate(ingredientFilter)
     domToInsert += filterIngredientCard
   });
@@ -94,8 +94,8 @@ export function insertAndUpdateIngredientFilters () {
       pushIngredientTag(ingredientName)
 
       // remove filter from filters list
-      if (ingredientsFilters.has(ingredientName)) {
-        ingredientsFilters.delete(ingredientName)
+      if (ingredientFilters.has(ingredientName)) {
+        ingredientFilters.delete(ingredientName)
         for (let i = 0; i < ingredientFilterItems.length; i++) {
           if (getNormalizedString(ingredientFilterItems[i].textContent) === ingredientName) {
             ingredientFilterItems[i].remove()
@@ -112,9 +112,9 @@ export function insertAndUpdateUtensilFilters () {
   for (let i = 0; i < utensilFilterItems.length; i++) utensilFilterItems[i].remove()
   let domToInsert = ""
 
-  utensilsFilters = new Set(utensilsFilters);
+  utensilFilters = new Set(utensilFilters);
   
-  utensilsFilters.forEach(utensilFilter => {
+  utensilFilters.forEach(utensilFilter => {
     const filterUtensilCard = filterUtensilTemplate(utensilFilter)
     domToInsert += filterUtensilCard
   });
@@ -129,8 +129,8 @@ export function insertAndUpdateUtensilFilters () {
       pushUtensilTag(utensilName)
 
       // remove filter from filters list
-      if (utensilsFilters.has(utensilName)) {
-        utensilsFilters.delete(utensilName)
+      if (utensilFilters.has(utensilName)) {
+        utensilFilters.delete(utensilName)
         for (let i = 0; i < utensilFilterItems.length; i++) {
           if (getNormalizedString(utensilFilterItems[i].textContent) === utensilName) {
             utensilFilterItems[i].remove()

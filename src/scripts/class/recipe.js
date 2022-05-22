@@ -12,6 +12,7 @@ export class Recipe {
 
       this._newUtensils = []
       this._newIngredients = []
+      this._newAppliance = ''
     }
 
     get newUtensils() {
@@ -23,7 +24,8 @@ export class Recipe {
       return this._newIngredients
     }
     get newAppliance() {
-      return this._appliance.toLowerCase()
+      this._newAppliance = this._appliance.toLowerCase()
+      return this._newAppliance
     }
 }
   

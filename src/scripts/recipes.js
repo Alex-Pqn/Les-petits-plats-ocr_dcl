@@ -1,11 +1,11 @@
 import { Recipe } from '../scripts/class/recipe'
 import { recipeTemplate } from '../scripts/templates/recipe'
-import { utensilsFilters, appliancesFilters, ingredientsFilters } from '../scripts/filters'
+import { utensilFilters, applianceFilters, ingredientFilters } from '../scripts/filters'
 
 let activeRecipesArray = []
 /**
  * 
- * @param {Array.<{utensilsFilters: [], appliancesFilters: [], ingredientsFilters: []}>} recipes 
+ * @param {Array.<{utensilFilters: [], applianceFilters: [], ingredientFilters: []}>} recipes 
  * @param {*} filters 
  */
 function displayRecipes (recipes, filters) {
@@ -16,9 +16,9 @@ function displayRecipes (recipes, filters) {
 		const recipeCardDOM = recipeTemplate(newRecipe);
 		recipesSection.insertAdjacentHTML('beforeend', recipeCardDOM);
 
-		utensilsFilters.push(...newRecipe['newUtensils'])
-		appliancesFilters.push(newRecipe.newAppliance)
-		ingredientsFilters.push(...newRecipe['newIngredients'])
+		utensilFilters.push(...newRecipe['newUtensils'])
+		applianceFilters.push(newRecipe.newAppliance)
+		ingredientFilters.push(...newRecipe['newIngredients'])
 
 		activeRecipesArray.push(newRecipe)
 	});
