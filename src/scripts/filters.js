@@ -22,37 +22,31 @@ window.addEventListener('load', (event) => {
   insertAndUpdateUtensilFilters()
 });
 
-export function removeApplianceFilter () {
-  const applianceFilterItems = document.getElementsByClassName('appliance-filter-item')
-
-  for (let i = 0; i < applianceFilterItems.length; i++) {
-    console.log(applianceFilterItems[i])
-  }
-  }
-
-function resetIngredientFilters () {
-  
-}
-
-function resetUtensilFilters () {
-  
-}
-
 export function insertAndUpdateApplianceFilters () {
   const applianceFilterItems = document.getElementsByClassName('appliance-filter-item')
+  
+  for (let i = 0; i < applianceFilterItems.length; i++) applianceFilterItems[i].remove()
+  let domToInsert = ""
 
-  const newAppliances = new Set(appliancesFilters);
-  newAppliances.forEach(appliance => applianceModal.insertAdjacentHTML('beforeend', filterApplianceTemplate(appliance)));
+  appliancesFilters = new Set(appliancesFilters);
+  
+  appliancesFilters.forEach(applianceFilter => {
+    const filterApplianceCard = filterApplianceTemplate(applianceFilter)
+    domToInsert += filterApplianceCard
+  });
+  
+  applianceModal.innerHTML = domToInsert
 
   for (let i = 0; i < applianceFilterItems.length; i++) {
     applianceFilterItems[i].addEventListener('click', (event) => {
         const applianceName = getNormalizedString(event.target.textContent)
-
+        
+        // push filter to tags list
         pushApplianceTag(applianceName)
-
-        if (newAppliances.has(applianceName)) {
-          newAppliances.delete(applianceName)
-
+        
+        // remove filter from filters list
+        if (appliancesFilters.has(applianceName)) {
+          appliancesFilters.delete(applianceName)
           for (let i = 0; i < applianceFilterItems.length; i++) {
             if (getNormalizedString(applianceFilterItems[i].textContent) === applianceName) {
               applianceFilterItems[i].remove()
@@ -66,17 +60,28 @@ export function insertAndUpdateApplianceFilters () {
 export function insertAndUpdateIngredientFilters () {
   const ingredientFilterItems = document.getElementsByClassName('ingredient-filter-item')
 
-  const newIngredients = new Set(ingredientsFilters);
-  newIngredients.forEach(ingredient => ingredientsModal.insertAdjacentHTML('beforeend', filterIngredientTemplate(ingredient)));
+  for (let i = 0; i < ingredientFilterItems.length; i++) ingredientFilterItems[i].remove()
+  let domToInsert = ""
 
+  ingredientsFilters = new Set(ingredientsFilters);
+  
+  ingredientsFilters.forEach(ingredientFilter => {
+    const filterIngredientCard = filterIngredientTemplate(ingredientFilter)
+    domToInsert += filterIngredientCard
+  });
+  
+  ingredientsModal.innerHTML = domToInsert
+  
   for (let i = 0; i < ingredientFilterItems.length; i++) {
     ingredientFilterItems[i].addEventListener('click', (event) => {
       const ingredientName = getNormalizedString(event.target.textContent)
+      
+      // push filter to tags list
       pushIngredientTag(ingredientName)
 
-      if (newIngredients.has(ingredientName)) {
-        newIngredients.delete(ingredientName)
-
+      // remove filter from filters list
+      if (ingredientsFilters.has(ingredientName)) {
+        ingredientsFilters.delete(ingredientName)
         for (let i = 0; i < ingredientFilterItems.length; i++) {
           if (getNormalizedString(ingredientFilterItems[i].textContent) === ingredientName) {
             ingredientFilterItems[i].remove()
@@ -89,18 +94,29 @@ export function insertAndUpdateIngredientFilters () {
 
 export function insertAndUpdateUtensilFilters () {
   const utensilFilterItems = document.getElementsByClassName('utensil-filter-item')
+  
+  for (let i = 0; i < utensilFilterItems.length; i++) utensilFilterItems[i].remove()
+  let domToInsert = ""
 
-  const newUtensils = new Set(utensilsFilters);
-  newUtensils.forEach(utensil => utensilModal.insertAdjacentHTML('beforeend', filterUtensilTemplate(utensil)));
-
+  utensilsFilters = new Set(utensilsFilters);
+  
+  utensilsFilters.forEach(utensilFilter => {
+    const filterUtensilCard = filterUtensilTemplate(utensilFilter)
+    domToInsert += filterUtensilCard
+  });
+  
+  utensilModal.innerHTML = domToInsert
+  
   for (let i = 0; i < utensilFilterItems.length; i++) {
     utensilFilterItems[i].addEventListener('click', (event) => {
       const utensilName = getNormalizedString(event.target.textContent)
+      
+      // push filter to tags list
       pushUtensilTag(utensilName)
 
-      if (newUtensils.has(utensilName)) {
-        newUtensils.delete(utensilName)
-
+      // remove filter from filters list
+      if (utensilsFilters.has(utensilName)) {
+        utensilsFilters.delete(utensilName)
         for (let i = 0; i < utensilFilterItems.length; i++) {
           if (getNormalizedString(utensilFilterItems[i].textContent) === utensilName) {
             utensilFilterItems[i].remove()

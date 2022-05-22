@@ -2,7 +2,7 @@ import { tagApplianceTemplate } from '../scripts/templates/tagAppliance'
 import { tagIngredientTemplate } from '../scripts/templates/tagIngredient'
 import { tagUtensilTemplate } from '../scripts/templates/tagUtensil'
 import { getNormalizedString } from '../scripts/global'
-import { removeApplianceFilter, insertAndUpdateIngredientFilters, insertAndUpdateUtensilFilters } from '../scripts/filters'
+import { insertAndUpdateApplianceFilters, insertAndUpdateUtensilFilters, insertAndUpdateIngredientFilters } from '../scripts/filters'
 import { utensilsFilters, appliancesFilters, ingredientsFilters } from '../scripts/filters'
 
 let applianceTags = []
@@ -114,19 +114,22 @@ export function pushUtensilTag (utensilTag) {
 
 function removeApplianceTag (applianceTag) {
     if (applianceTags.includes(applianceTag)) applianceTags.splice(applianceTags.indexOf(applianceTag), 1)
-    if (appliancesFilters.includes(applianceTag)) appliancesFilters.splice(applianceTags.indexOf(applianceTag), 1)
     updateAndInsertApplianceTags()
-    removeApplianceFilter(applianceTag)
+    
+    appliancesFilters.add(applianceTag)
+    insertAndUpdateApplianceFilters()
 }
 function removeIngredientTag (ingredientTag) {
     if (ingredientTags.includes(ingredientTag)) ingredientTags.splice(ingredientTags.indexOf(ingredientTag), 1)
-    if (ingredientsFilters.includes(ingredientTag)) ingredientsFilters.splice(ingredientTag.indexOf(ingredientTag), 1)
     updateAndInsertIngredientsTags()
+    
+    ingredientsFilters.add(ingredientTag)
     insertAndUpdateIngredientFilters()
 }
 function removeUtensilTag (utensilTag) {
     if (utensilTags.includes(utensilTag)) utensilTags.splice(utensilTags.indexOf(utensilTag), 1)
-    if (utensilsFilters.includes(utensilTag)) utensilsFilters.splice(utensilTag.indexOf(utensilTag), 1)
     updateAndInsertUtensilTags()
+    
+    utensilsFilters.add(utensilTag)
     insertAndUpdateUtensilFilters()
 }
