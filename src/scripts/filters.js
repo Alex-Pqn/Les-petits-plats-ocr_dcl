@@ -1,4 +1,5 @@
 import { pushApplianceTag, pushIngredientTag, pushUtensilTag } from '../scripts/tags'
+import { updateIngredientFiltersModal, updateApplianceFiltersModal, updateUtensilFiltersModal } from '../scripts/filtersSearch'
 import { filterApplianceTemplate } from '../scripts/templates/filterAppliance'
 import { filterIngredientTemplate } from '../scripts/templates/filterIngredient'
 import { filterUtensilTemplate } from '../scripts/templates/filterUtensil'
@@ -20,6 +21,19 @@ window.addEventListener('load', (event) => {
   insertAndUpdateApplianceFilters()
   insertAndUpdateIngredientFilters()
   insertAndUpdateUtensilFilters()
+  
+  ingredientsInput.addEventListener('input', (event) => {
+    const ingredientsInputSearch = event.target.value
+    updateIngredientFiltersModal(ingredientsInputSearch)
+  })
+  applianceInput.addEventListener('input', (event) => {
+    const appliancesInputSearch = event.target.value
+    updateApplianceFiltersModal(appliancesInputSearch)
+  })
+  utensilInput.addEventListener('input', (event) => {
+    const utensilsInputSearch = event.target.value
+    updateUtensilFiltersModal(utensilsInputSearch)
+  })
 });
 
 export function insertAndUpdateApplianceFilters () {
