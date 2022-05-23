@@ -7,25 +7,34 @@ let searchFilter = ''
 let activeRecipes = recipes
 
 searchInput.addEventListener('input', (event) => {
-  searchFilter = event.target.value
+  searchFilter = event.target.value.toLowerCase()
   updateRecipes()
 })
-
-function updateRecipesValidation () {
-	const isSearchFilterActive = () => searchFilter.length >= 3
-	const isUtensilFilterActive = () => utensilTags.length >= 1
-	const isApplianceFilterActive = () => applianceTags.length >= 1
-	const isIngredientFilterActive = () => ingredientTags.length >= 1
-
-	if (isSearchFilterActive() || isUtensilFilterActive() || isApplianceFilterActive() || isIngredientFilterActive()) return true
-}
 
 function resetRecipes () {
 	activeRecipes = []
 }
 
 export function updateRecipes () {
-  if (updateRecipesValidation()) {
-    console.log('update recipes')
+  const isSearchFilterActive = () => searchFilter.length >= 3
+	const isUtensilFilterActive = () => utensilTags.length >= 1
+	const isApplianceFilterActive = () => applianceTags.length >= 1
+	const isIngredientFilterActive = () => ingredientTags.length >= 1
+  
+  if (isSearchFilterActive() ||isUtensilFilterActive() || isApplianceFilterActive() || isIngredientFilterActive()) { 
+    
+    const newActiveRecipes = activeRecipes.filter(function (recipe) {
+      if (isSearchFilterActive) {
+        if (recipe._newIngredients.some(ingredient => searchFilter.includes(ingredient))) return true
+        if (recipe.newName.includes(searchFilter)) return true
+        if (recipe.newDescription.includes(searchFilter)) return true 
+      }
+    })
+    
+    console.log(newActiveRecipes)
+    
+    console.log(utensilTags)
+    console.log(applianceTags)
+    console.log(ingredientTags)
   }
 }
