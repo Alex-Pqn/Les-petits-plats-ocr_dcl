@@ -23,6 +23,8 @@ function updateAndInsertApplianceTags () {
     });
 
     appliancesTagsContainer.innerHTML = domToInsert
+    
+    updateApplianceTagsListeners()
 }
 
 function updateAndInsertIngredientsTags () {
@@ -38,6 +40,8 @@ function updateAndInsertIngredientsTags () {
     });
 
     ingredientsTagsContainer.innerHTML = domToInsert
+    
+    updateIngredientTagsListeners()
 }
 
 function updateAndInsertUtensilTags () {
@@ -53,6 +57,8 @@ function updateAndInsertUtensilTags () {
     });
 
     utensilsTagsContainer.innerHTML = domToInsert
+    
+    updateUtensilTagsListeners()
 }
 
 function updateUtensilTagsListeners () {
@@ -92,7 +98,6 @@ export function pushApplianceTag (applianceTag) {
     if (!applianceTags.includes(applianceTag)) {
         applianceTags.push(applianceTag)
         updateAndInsertApplianceTags()
-        updateApplianceTagsListeners()
         updateRecipes()
     }
 }
@@ -100,7 +105,6 @@ export function pushIngredientTag (ingredientTag) {
     if (!ingredientTags.includes(ingredientTag)) {
         ingredientTags.push(ingredientTag)
         updateAndInsertIngredientsTags()
-        updateIngredientTagsListeners()
         updateRecipes()
     }
 }
@@ -108,7 +112,6 @@ export function pushUtensilTag (utensilTag) {
     if (!utensilTags.includes(utensilTag)) {
         utensilTags.push(utensilTag)
         updateAndInsertUtensilTags()
-        updateUtensilTagsListeners()
         updateRecipes()
     }
 }
