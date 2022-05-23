@@ -1,18 +1,31 @@
-import { utensilFilters, applianceFilters, ingredientFilters } from '../scripts/filters'
+import { utensilTags, applianceTags, ingredientTags } from '../scripts/tags'
+import { recipes } from '../scripts/recipes'
 
-const searchInput = document.getElementById('search-input').value
+const searchInput = document.getElementById('search-input')
 
-function resetRecipes () {
-	activeRecipesArray = []
+let searchFilter = ''
+let activeRecipes = recipes
+
+searchInput.addEventListener('input', (event) => {
+  searchFilter = event.target.value
+  updateRecipes()
+})
+
+function updateRecipesValidation () {
+	const isSearchFilterActive = () => searchFilter.length >= 3
+	const isUtensilFilterActive = () => utensilTags.length >= 1
+	const isApplianceFilterActive = () => applianceTags.length >= 1
+	const isIngredientFilterActive = () => ingredientTags.length >= 1
+
+	if (isSearchFilterActive() || isUtensilFilterActive() || isApplianceFilterActive() || isIngredientFilterActive()) return true
 }
 
-function updateRecipes () {
-	isSearchInputActive = () => document.getElementById('search-input').value.length >= 3
-	isUtensilFilterActive = () => utensilFilters.length >= 1
-	isApplianceFilterActive = () => applianceFilters.length >= 1
-	isIngredientFilterActive = () => ingredientFilters.length >= 1
+function resetRecipes () {
+	activeRecipes = []
+}
 
-	if (isSearchInputActive() || (isUtensilFilterActive() || isApplianceFilterActive() || isIngredientFilterActive()) && isSearchInputActive()) {
-		resetRecipes()
-	}
+export function updateRecipes () {
+  if (updateRecipesValidation()) {
+    console.log('update recipes')
+  }
 }

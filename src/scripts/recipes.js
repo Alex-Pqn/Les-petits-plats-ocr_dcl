@@ -2,7 +2,8 @@ import { Recipe } from '../scripts/class/recipe'
 import { recipeTemplate } from '../scripts/templates/recipe'
 import { utensilFilters, applianceFilters, ingredientFilters } from '../scripts/filters'
 
-let activeRecipesArray = []
+export let recipes = []
+
 /**
  * 
  * @param {Array.<{utensilFilters: [], applianceFilters: [], ingredientFilters: []}>} recipes 
@@ -20,7 +21,7 @@ function displayRecipes (recipes, filters) {
 		applianceFilters.push(newRecipe.newAppliance)
 		ingredientFilters.push(...newRecipe['newIngredients'])
 
-		activeRecipesArray.push(newRecipe)
+		recipes.push(newRecipe)
 	});
 }
 
