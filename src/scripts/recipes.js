@@ -1,6 +1,7 @@
 import { Recipe } from '../scripts/class/recipe'
 import { recipeTemplate } from '../scripts/templates/recipe'
 import { utensilFilters, applianceFilters, ingredientFilters } from '../scripts/filters'
+import { getRecipesData } from '../scripts/index'
 
 export let recipes = []
 
@@ -9,10 +10,10 @@ export let recipes = []
  * @param {Array.<{utensilFilters: [], applianceFilters: [], ingredientFilters: []}>} recipes 
  * @param {*} filters 
  */
-function displayRecipes (recipes, filters) {
+function displayRecipes (recipesData, filters) {
 	const recipesSection = document.querySelector('.recipes-items');
 
-	recipes.forEach(recipe => {
+	recipesData.forEach(recipe => {
 		const newRecipe = new Recipe(recipe);
 		const recipeCardDOM = recipeTemplate(newRecipe);
 		recipesSection.insertAdjacentHTML('beforeend', recipeCardDOM);
@@ -26,9 +27,8 @@ function displayRecipes (recipes, filters) {
 }
 
 async function init () {
-	const response = await fetch('../../data/recipes.json');
-	const recipesData = await response.json();
-
+  const recipesData = await getRecipesData()
+  
   displayRecipes(recipesData);
 }
 
