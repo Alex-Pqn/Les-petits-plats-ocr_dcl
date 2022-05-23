@@ -14,7 +14,13 @@ export class Recipe {
       this._newIngredients = []
       this._newAppliance = ''
     }
-
+    
+    get newName() {
+     return this._name.toLowerCase() 
+    }
+    get newDescription() {
+      return this._description.toLowerCase() 
+     }
     get newUtensils() {
       this._newUtensils = this._utensils.map(utensil => utensil.toLowerCase())
       return this._newUtensils
