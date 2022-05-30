@@ -18,7 +18,7 @@ export function updateIngredientFiltersModal (searchInput) {
     
     // some ingredients match with search
     if (ingredientMatches.length >= 1) {
-      for (let i = ingredientFilterItems.length; i > -1; i--) {
+      for (let i = ingredientFilterItems.length; i >= 0; i--) {
         if (ingredientFilterItems[i]) {
           let isIngredientMatch
         

@@ -1,4 +1,5 @@
 import { utensilTags, applianceTags, ingredientTags } from '../scripts/tags'
+import { recipeTemplate } from '../scripts/templates/recipe'
 import { recipes } from '../scripts/recipes'
 
 const searchInput = document.getElementById('search-input')
@@ -7,25 +8,66 @@ let searchFilter = ''
 let activeRecipes = recipes
 
 searchInput.addEventListener('input', (event) => {
-  searchFilter = event.target.value
+  searchFilter = event.target.value.toLowerCase()
   updateRecipes()
 })
 
-function updateRecipesValidation () {
-	const isSearchFilterActive = () => searchFilter.length >= 3
-	const isUtensilFilterActive = () => utensilTags.length >= 1
-	const isApplianceFilterActive = () => applianceTags.length >= 1
-	const isIngredientFilterActive = () => ingredientTags.length >= 1
+function reloadRecipes () {
+  const recipesSection = document.querySelector('.recipes-items');
+  const recipeItems = document.querySelectorAll('.recipes-item');
+  
+  recipeItems.forEach(recipe => recipe.remove())
 
-	if (isSearchFilterActive() || isUtensilFilterActive() || isApplianceFilterActive() || isIngredientFilterActive()) return true
+	activeRecipes.forEach(recipe => {
+		const recipeCardDOM = recipeTemplate(recipe);
+		recipesSection.insertAdjacentHTML('beforeend', recipeCardDOM);
+	});
 }
-
-function resetRecipes () {
-	activeRecipes = []
-}
-
+/**
+ * JSDOC ICI
+ */
 export function updateRecipes () {
-  if (updateRecipesValidation()) {
-    console.log('update recipes')
+  const isSearchFilterActive = () => searchFilter.length >= 3
+	const isUtensilsFilterActive = () => utensilTags.length >= 1
+	const isAppliancesFilterActive = () => applianceTags.length >= 1
+	const isIngredientsFilterActive = () => ingredientTags.length >= 1
+  
+  if (isSearchFilterActive() || isUtensilsFilterActive() || isAppliancesFilterActive() || isIngredientsFilterActive()) {
+    const newActiveRecipes = recipes.filter(function (recipe) {
+     
+      /*
+        com ici
+      */
+      const ingredientStep = isIngredientsFilterActive() && (ingredientTags.every(ingredient => recipe._newIngredients.includes(ingredient)))
+      const applianceStep = isAppliancesFilterActive() && (applianceTags.every(appliance => recipe._newAppliance.includes(appliance)))
+      const utensilStep = isUtensilsFilterActive() && (utensilTags.every(utensil => recipe._newUtensils.includes(utensil)))
+      
+      let searchStep = false
+      // décrire
+      if (isSearchFilterActive()) {
+        // ingredients
+        if (recipe._newIngredients.some(ingredient => searchFilter.includes(ingredient))) searchStep = true
+        // name/title
+        if (recipe.newName.includes(searchFilter)) searchStep = true
+        // description
+        if (recipe.newDescription.includes(searchFilter)) searchStep = true 
+      }
+      
+      // steps validation
+      if (
+        (!isIngredientsFilterActive() || ingredientStep) && 
+        (!isAppliancesFilterActive() || applianceStep) && 
+        (!isUtensilsFilterActive() || utensilStep) &&
+        (!isSearchFilterActive() || searchStep)
+        ) return true
+    })
+    // push active recipes
+    activeRecipes = newActiveRecipes
+    reloadRecipes()
+  }
+  else if (!isSearchFilterActive() && !isUtensilsFilterActive() && !isAppliancesFilterActive() && !isIngredientsFilterActive()) {
+    // reinitialyze recipes
+    activeRecipes = recipes
+    reloadRecipes()
   }
 }
