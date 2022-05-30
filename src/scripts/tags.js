@@ -120,7 +120,7 @@ function removeApplianceTag (applianceTag) {
     if (applianceTags.includes(applianceTag)) applianceTags.splice(applianceTags.indexOf(applianceTag), 1)
     updateAndInsertApplianceTags()
     
-    applianceFilters.add(applianceTag)
+    applianceFilters.push(applianceTag)
     resetApplianceFilters()
     insertAndUpdateApplianceFilters()
     
@@ -130,7 +130,7 @@ function removeIngredientTag (ingredientTag) {
     if (ingredientTags.includes(ingredientTag)) ingredientTags.splice(ingredientTags.indexOf(ingredientTag), 1)
     updateAndInsertIngredientsTags()
     
-    ingredientFilters.add(ingredientTag)
+    ingredientFilters.push(ingredientTag)
     resetIngredientFilters()
     insertAndUpdateIngredientFilters()
     
@@ -140,7 +140,7 @@ function removeUtensilTag (utensilTag) {
     if (utensilTags.includes(utensilTag)) utensilTags.splice(utensilTags.indexOf(utensilTag), 1)
     updateAndInsertUtensilTags()
     
-    utensilFilters.add(utensilTag)
+    utensilFilters.push(utensilTag)
     resetUtensilFilters()
     insertAndUpdateUtensilFilters()
     

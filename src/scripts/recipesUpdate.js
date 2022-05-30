@@ -42,7 +42,7 @@ export function updateRecipes () {
   
   if (isSearchFilterActive() || isUtensilsFilterActive() || isAppliancesFilterActive() || isIngredientsFilterActive()) {      
     // push active recipes
-    activeRecipes = newActiveRecipes
+    // activeRecipes = newActiveRecipes
     reloadRecipes()
   }
   else if (!isSearchFilterActive() && !isUtensilsFilterActive() && !isAppliancesFilterActive() && !isIngredientsFilterActive()) {
