@@ -9,6 +9,10 @@ export let utensilFilters = []
 export let applianceFilters = []
 export let ingredientFilters = []
 
+export let activeUtensilFilters
+export let activeApplianceFilters
+export let activeIngredientFilters
+
 const ingredientsInput = document.getElementById('ingredient-input')
 const applianceInput = document.getElementById('appliance-input')
 const utensilInput = document.getElementById('utensil-input')
@@ -18,6 +22,10 @@ const applianceModal = document.querySelector('.appliance-filter-modal ul')
 const utensilModal = document.querySelector('.utensil-filter-modal ul')
 
 window.addEventListener('load', (event) => {
+  activeUtensilFilters = Array.from(new Set(utensilFilters))
+  activeApplianceFilters = Array.from(new Set(applianceFilters))
+  activeIngredientFilters = Array.from(new Set(ingredientFilters))
+  
   insertAndUpdateApplianceFilters()
   insertAndUpdateIngredientFilters()
   insertAndUpdateUtensilFilters()
@@ -36,25 +44,41 @@ window.addEventListener('load', (event) => {
   })
 });
 
+export function resetIngredientFilters () {
+  activeIngredientFilters = ingredientFilters
+}
+export function resetUtensilFilters () {
+  activeUtensilFilters = utensilFilters
+}
+export function resetApplianceFilters () {
+  activeApplianceFilters = applianceFilters
+}
+
 export function insertAndUpdateApplianceFilters () {
   const applianceFilterItems = document.getElementsByClassName('appliance-filter-item')
   
   for (let i = 0; i < applianceFilterItems.length; i++) applianceFilterItems[i].remove()
-  let domToInsert = ""
+  let domToInsert = ''
 
   // alphabetic sort & prevent duplication with Set
-  applianceFilters = new Set(Array.from(applianceFilters).sort((a, b) => a.localeCompare(b)))
+  const applianceFiltersSet = new Set(Array.from(applianceFilters).sort((a, b) => a.localeCompare(b)))
+  applianceFilters = Array.from(applianceFiltersSet)
+  
+  activeApplianceFilters = activeApplianceFilters.sort((a, b) => a.localeCompare(b))
   
   // display filters in modal
-  Array.from(applianceFilters).forEach((applianceFilter, i) => {
-    const maximumDisplayItems = 26
+  activeApplianceFilters.forEach((activeApplianceFilter, i) => {
+    const maximumDisplayedItems = 26
     
-    if (i < maximumDisplayItems) {
-      const filterApplianceCard = filterApplianceTemplate(applianceFilter)
+    if (i < maximumDisplayedItems) {
+      const filterApplianceCard = filterApplianceTemplate(activeApplianceFilter)
       domToInsert += filterApplianceCard
     }
   });
   applianceModal.innerHTML = domToInsert
+  
+  // reset active appliance filters
+  activeApplianceFilters = []
 
   // add event listeners
   for (let i = 0; i < applianceFilterItems.length; i++) {
@@ -65,8 +89,8 @@ export function insertAndUpdateApplianceFilters () {
         pushApplianceTag(applianceName)
         
         // remove filter from filters list
-        if (applianceFilters.has(applianceName)) {
-          applianceFilters.delete(applianceName)
+        if (applianceFilters.includes(applianceName)) {
+          applianceFilters.splice(applianceFilters.indexOf(applianceName), 1)
           for (let i = 0; i < applianceFilterItems.length; i++) {
             if (getNormalizedString(applianceFilterItems[i].textContent) === applianceName) {
               applianceFilterItems[i].remove()
@@ -84,18 +108,24 @@ export function insertAndUpdateIngredientFilters () {
   let domToInsert = ""
 
   // alphabetic sort & prevent duplication with Set
-  ingredientFilters = new Set(Array.from(ingredientFilters).sort((a, b) => a.localeCompare(b)))
+  const ingredientFiltersSet = new Set(Array.from(ingredientFilters).sort((a, b) => a.localeCompare(b)))
+  ingredientFilters = Array.from(ingredientFiltersSet)
+  
+  activeIngredientFilters = activeIngredientFilters.sort((a, b) => a.localeCompare(b))
   
   // display filters in modal
-  Array.from(ingredientFilters).forEach((ingredientFilter, i) => {
-    const maximumDisplayItems = 26
+  activeIngredientFilters.forEach((activeIngredientFilter, i) => {
+    const maximumDisplayedItems = 26
     
-    if (i < maximumDisplayItems) {
-      const filterIngredientCard = filterIngredientTemplate(ingredientFilter)
+    if (i < maximumDisplayedItems) {
+      const filterIngredientCard = filterIngredientTemplate(activeIngredientFilter)
       domToInsert += filterIngredientCard
     }
   });
   ingredientsModal.innerHTML = domToInsert
+  
+  // reset active ingredient filters
+  activeIngredientFilters = []
   
   // add event listeners
   for (let i = 0; i < ingredientFilterItems.length; i++) {
@@ -106,8 +136,8 @@ export function insertAndUpdateIngredientFilters () {
       pushIngredientTag(ingredientName)
 
       // remove filter from filters list
-      if (ingredientFilters.has(ingredientName)) {
-        ingredientFilters.delete(ingredientName)
+      if (ingredientFilters.includes(ingredientName)) {
+        ingredientFilters.splice(ingredientFilters.indexOf(ingredientName), 1)
         for (let i = 0; i < ingredientFilterItems.length; i++) {
           if (getNormalizedString(ingredientFilterItems[i].textContent) === ingredientName) {
             ingredientFilterItems[i].remove()
@@ -125,18 +155,24 @@ export function insertAndUpdateUtensilFilters () {
   let domToInsert = ""
 
   // alphabetic sort & prevent duplication with Set
-  utensilFilters = new Set (Array.from(utensilFilters).sort((a, b) => a.localeCompare(b)))
+  const utensilFiltersSet = new Set (Array.from(utensilFilters).sort((a, b) => a.localeCompare(b)))
+  utensilFilters = Array.from(utensilFiltersSet)
+  
+  activeUtensilFilters = activeUtensilFilters.sort((a, b) => a.localeCompare(b))
   
   // display filters in modal
-  Array.from(utensilFilters).forEach((utensilFilter, i) => {
+  activeUtensilFilters.forEach((activeUtensilFilter, i) => {
     const maximumDisplayItems = 26
     
     if (i < maximumDisplayItems) {
-      const filterUtensilCard = filterUtensilTemplate(utensilFilter)
+      const filterUtensilCard = filterUtensilTemplate(activeUtensilFilter)
       domToInsert += filterUtensilCard
     }
   });
   utensilModal.innerHTML = domToInsert
+  
+  // reset active utensil filters
+  activeUtensilFilters = []
   
   // add event listeners
   for (let i = 0; i < utensilFilterItems.length; i++) {
@@ -147,8 +183,8 @@ export function insertAndUpdateUtensilFilters () {
       pushUtensilTag(utensilName)
 
       // remove filter from filters list
-      if (utensilFilters.has(utensilName)) {
-        utensilFilters.delete(utensilName)
+      if (utensilFilters.includes(utensilName)) {
+        utensilFilters.splice(utensilFilters.indexOf(utensilName), 1)
         for (let i = 0; i < utensilFilterItems.length; i++) {
           if (getNormalizedString(utensilFilterItems[i].textContent) === utensilName) {
             utensilFilterItems[i].remove()

@@ -2,7 +2,7 @@ import { tagApplianceTemplate } from '../scripts/templates/tagAppliance'
 import { tagIngredientTemplate } from '../scripts/templates/tagIngredient'
 import { tagUtensilTemplate } from '../scripts/templates/tagUtensil'
 import { getNormalizedString } from '../scripts/global'
-import { insertAndUpdateApplianceFilters, insertAndUpdateUtensilFilters, insertAndUpdateIngredientFilters } from '../scripts/filters'
+import { insertAndUpdateApplianceFilters, insertAndUpdateUtensilFilters, insertAndUpdateIngredientFilters, resetIngredientFilters, resetUtensilFilters, resetApplianceFilters } from '../scripts/filters'
 import { utensilFilters, applianceFilters, ingredientFilters } from '../scripts/filters'
 import { updateRecipes } from '../scripts/recipesUpdate'
 
@@ -120,7 +120,8 @@ function removeApplianceTag (applianceTag) {
     if (applianceTags.includes(applianceTag)) applianceTags.splice(applianceTags.indexOf(applianceTag), 1)
     updateAndInsertApplianceTags()
     
-    applianceFilters.add(applianceTag)
+    applianceFilters.push(applianceTag)
+    resetApplianceFilters()
     insertAndUpdateApplianceFilters()
     
     updateRecipes()
@@ -129,7 +130,8 @@ function removeIngredientTag (ingredientTag) {
     if (ingredientTags.includes(ingredientTag)) ingredientTags.splice(ingredientTags.indexOf(ingredientTag), 1)
     updateAndInsertIngredientsTags()
     
-    ingredientFilters.add(ingredientTag)
+    ingredientFilters.push(ingredientTag)
+    resetIngredientFilters()
     insertAndUpdateIngredientFilters()
     
     updateRecipes()
@@ -138,7 +140,8 @@ function removeUtensilTag (utensilTag) {
     if (utensilTags.includes(utensilTag)) utensilTags.splice(utensilTags.indexOf(utensilTag), 1)
     updateAndInsertUtensilTags()
     
-    utensilFilters.add(utensilTag)
+    utensilFilters.push(utensilTag)
+    resetUtensilFilters()
     insertAndUpdateUtensilFilters()
     
     updateRecipes()

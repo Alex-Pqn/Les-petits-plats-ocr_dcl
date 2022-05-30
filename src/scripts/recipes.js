@@ -6,7 +6,7 @@ import { getRecipesData } from '../scripts/index'
 export let recipes = []
 
 /**
- * 
+ * display recipes
  * @param {Array.<{utensilFilters: [], applianceFilters: [], ingredientFilters: []}>} recipes 
  * @param {*} filters 
  */
@@ -17,7 +17,7 @@ function displayRecipes (recipesData, filters) {
 		const newRecipe = new Recipe(recipe);
 		const recipeCardDOM = recipeTemplate(newRecipe);
 		recipesSection.insertAdjacentHTML('beforeend', recipeCardDOM);
-
+      
 		utensilFilters.push(...newRecipe['newUtensils'])
 		applianceFilters.push(newRecipe.newAppliance)
 		ingredientFilters.push(...newRecipe['newIngredients'])
