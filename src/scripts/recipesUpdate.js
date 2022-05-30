@@ -27,8 +27,12 @@ function reloadRecipes () {
 		recipesSection.insertAdjacentHTML('beforeend', recipeCardDOM);
 	});
 }
+
 /**
- * JSDOC ICI
+ * @param {String} searchFilter
+ * @param {Array} utensilTags
+ * @param {Array} applianceTags
+ * @param {Array} ingredientTags
  */
 export function updateRecipes () {
   const isSearchFilterActive = () => searchFilter.length >= 3
