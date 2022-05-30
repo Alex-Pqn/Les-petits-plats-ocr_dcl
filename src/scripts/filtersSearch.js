@@ -1,16 +1,8 @@
-import { utensilFilters, applianceFilters, ingredientFilters } from '../scripts/filters'
+import { utensilFilters, applianceFilters, ingredientFilters, activeUtensilFilters, activeApplianceFilters, activeIngredientFilters, resetApplianceFilters, resetUtensilFilters, resetIngredientFilters } from '../scripts/filters'
 import { insertAndUpdateApplianceFilters, insertAndUpdateUtensilFilters, insertAndUpdateIngredientFilters } from '../scripts/filters'
-import { getNormalizedString } from '../scripts/global'
-
-const applianceFilterItems = document.getElementsByClassName('appliance-filter-item')
-const utensilFilterItems = document.getElementsByClassName('utensil-filter-item')
-const ingredientFilterItems = document.getElementsByClassName('ingredient-filter-item')
 
 export function updateIngredientFiltersModal (searchInput) {
   const ingredientFiltersArray = Array.from(ingredientFilters)
-  
-  // reset ingredient filters
-  insertAndUpdateIngredientFilters()
   
   if (searchInput) {
     // filter ingredients by search input
@@ -18,28 +10,22 @@ export function updateIngredientFiltersModal (searchInput) {
     
     // some ingredients match with search
     if (ingredientMatches.length >= 1) {
-      for (let i = ingredientFilterItems.length; i >= 0; i--) {
-        if (ingredientFilterItems[i]) {
-          let isIngredientMatch
-        
-          ingredientMatches.forEach((ingredientMatch, key, ingredientMatches) => {
-            // ingredient match with filter
-            if (ingredientMatch === getNormalizedString(ingredientFilterItems[i].textContent)) isIngredientMatch = true
-            
-            // last iteration & ingredient doesn't match with any filter
-            if (Object.is(ingredientMatches.length - 1, key) && !isIngredientMatch) ingredientFilterItems[i].remove()
-          })
-        }
-      } 
+      ingredientMatches.forEach(ingredientMatch => {
+        // push ingredient filter into active ingredient filters
+        activeIngredientFilters.push(ingredientMatch)
+      })
+      insertAndUpdateIngredientFilters()
     }
-    else for (let i = ingredientFilterItems.length; i > -1; i--) if (ingredientFilterItems[i]) ingredientFilterItems[i].remove()
+    else insertAndUpdateIngredientFilters()
+  }
+  else {
+    resetIngredientFilters()
+    insertAndUpdateIngredientFilters()
   }
 } 
+
 export function updateUtensilFiltersModal (searchInput) {
   const utensilFiltersArray = Array.from(utensilFilters)
-  
-  // reset utensil filters
-  insertAndUpdateUtensilFilters()
   
   if (searchInput) {
     // filter utensils by search input
@@ -47,28 +33,22 @@ export function updateUtensilFiltersModal (searchInput) {
     
     // some utensils match with search
     if (utensilMatches.length >= 1) {
-      for (let i = utensilFilterItems.length; i > -1; i--) {
-        if (utensilFilterItems[i]) {
-          let isUtensilMatch
-        
-          utensilMatches.forEach((utensilMatch, key, utensilMatches) => {
-            // utensil match with filter
-            if (utensilMatch === getNormalizedString(utensilFilterItems[i].textContent)) isUtensilMatch = true
-            
-            // last iteration & utensil doesn't match with any filter
-            if (Object.is(utensilMatches.length - 1, key) && !isUtensilMatch) utensilFilterItems[i].remove()
-          })
-        }
-      } 
+      utensilMatches.forEach(utensilMatch => {
+        // push utensil filter into active utensil filters
+        activeUtensilFilters.push(utensilMatch)
+      })
+      insertAndUpdateUtensilFilters()
     }
-    else for (let i = utensilFilterItems.length; i > -1; i--) if (utensilFilterItems[i]) utensilFilterItems[i].remove()
+    else insertAndUpdateUtensilFilters()
+  }
+  else {
+    resetUtensilFilters()
+    insertAndUpdateUtensilFilters()
   }
 } 
+
 export function updateApplianceFiltersModal (searchInput) {
   const applianceFiltersArray = Array.from(applianceFilters)
-  
-  // reset appliance filters
-  insertAndUpdateApplianceFilters()
   
   if (searchInput) {
     // filter appliances by search input
@@ -76,21 +56,17 @@ export function updateApplianceFiltersModal (searchInput) {
     
     // some appliances match with search
     if (applianceMatches.length >= 1) {
-      for (let i = applianceFilterItems.length; i > -1; i--) {
-        if (applianceFilterItems[i]) {
-          let isApplianceMatch
-        
-          applianceMatches.forEach((applianceMatch, key, applianceMatches) => {
-            // appliance match with filter
-            if (applianceMatch === getNormalizedString(applianceFilterItems[i].textContent)) isApplianceMatch = true
-            
-            // last iteration & appliance doesn't match with any filter
-            if (Object.is(applianceMatches.length - 1, key) && !isApplianceMatch) applianceFilterItems[i].remove()
-          })
-        }
-      } 
+      applianceMatches.forEach(applianceMatch => {
+        // push appliance filter into active appliance filters
+        activeApplianceFilters.push(applianceMatch)
+      })
+      insertAndUpdateApplianceFilters()
     }
-    else for (let i = applianceFilterItems.length; i > -1; i--) if (applianceFilterItems[i]) applianceFilterItems[i].remove()
+    else insertAndUpdateApplianceFilters()
+  }
+  else {
+    resetApplianceFilters()
+    insertAndUpdateApplianceFilters()
   }
 } 
 

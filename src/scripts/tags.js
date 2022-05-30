@@ -2,7 +2,7 @@ import { tagApplianceTemplate } from '../scripts/templates/tagAppliance'
 import { tagIngredientTemplate } from '../scripts/templates/tagIngredient'
 import { tagUtensilTemplate } from '../scripts/templates/tagUtensil'
 import { getNormalizedString } from '../scripts/global'
-import { insertAndUpdateApplianceFilters, insertAndUpdateUtensilFilters, insertAndUpdateIngredientFilters } from '../scripts/filters'
+import { insertAndUpdateApplianceFilters, insertAndUpdateUtensilFilters, insertAndUpdateIngredientFilters, resetIngredientFilters, resetUtensilFilters, resetApplianceFilters } from '../scripts/filters'
 import { utensilFilters, applianceFilters, ingredientFilters } from '../scripts/filters'
 import { updateRecipes } from '../scripts/recipesUpdate'
 
@@ -121,6 +121,7 @@ function removeApplianceTag (applianceTag) {
     updateAndInsertApplianceTags()
     
     applianceFilters.add(applianceTag)
+    resetApplianceFilters()
     insertAndUpdateApplianceFilters()
     
     updateRecipes()
@@ -130,6 +131,7 @@ function removeIngredientTag (ingredientTag) {
     updateAndInsertIngredientsTags()
     
     ingredientFilters.add(ingredientTag)
+    resetIngredientFilters()
     insertAndUpdateIngredientFilters()
     
     updateRecipes()
@@ -139,6 +141,7 @@ function removeUtensilTag (utensilTag) {
     updateAndInsertUtensilTags()
     
     utensilFilters.add(utensilTag)
+    resetUtensilFilters()
     insertAndUpdateUtensilFilters()
     
     updateRecipes()
