@@ -37,34 +37,6 @@ export function updateRecipes () {
 	const isIngredientsFilterActive = () => ingredientTags.length >= 1
   
   if (isSearchFilterActive() || isUtensilsFilterActive() || isAppliancesFilterActive() || isIngredientsFilterActive()) {
-    const newActiveRecipes = recipes.filter(function (recipe) {
-     
-      /*
-        com ici
-      */
-      const ingredientStep = isIngredientsFilterActive() && (ingredientTags.every(ingredient => recipe._newIngredients.includes(ingredient)))
-      const applianceStep = isAppliancesFilterActive() && (applianceTags.every(appliance => recipe._newAppliance.includes(appliance)))
-      const utensilStep = isUtensilsFilterActive() && (utensilTags.every(utensil => recipe._newUtensils.includes(utensil)))
-      
-      let searchStep = false
-      // décrire
-      if (isSearchFilterActive()) {
-        // ingredients
-        if (recipe._newIngredients.some(ingredient => searchFilter.includes(ingredient))) searchStep = true
-        // name/title
-        if (recipe.newName.includes(searchFilter)) searchStep = true
-        // description
-        if (recipe.newDescription.includes(searchFilter)) searchStep = true 
-      }
-      
-      // steps validation
-      if (
-        (!isIngredientsFilterActive() || ingredientStep) && 
-        (!isAppliancesFilterActive() || applianceStep) && 
-        (!isUtensilsFilterActive() || utensilStep) &&
-        (!isSearchFilterActive() || searchStep)
-        ) return true
-    })
     // push active recipes
     activeRecipes = newActiveRecipes
     reloadRecipes()
