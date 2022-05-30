@@ -15,10 +15,14 @@ searchInput.addEventListener('input', (event) => {
 function reloadRecipes () {
   const recipesSection = document.querySelector('.recipes-items');
   const recipeItems = document.querySelectorAll('.recipes-item');
+  const recipesEmpty = document.querySelector('.recipes-empty')
   
   recipeItems.forEach(recipe => recipe.remove())
+  
+  if (activeRecipes.length === 0) recipesEmpty.classList.add('recipes-empty-active')
+  else recipesEmpty.classList.remove('recipes-empty-active')
 
-	activeRecipes.forEach(recipe => {
+	activeRecipes.forEach((recipe) => {
 		const recipeCardDOM = recipeTemplate(recipe);
 		recipesSection.insertAdjacentHTML('beforeend', recipeCardDOM);
 	});

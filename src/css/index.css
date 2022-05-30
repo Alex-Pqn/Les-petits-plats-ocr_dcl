@@ -110,7 +110,7 @@ ul li a, ul li {
 	display: flex!important;
 }
 .filter-input-active {
-	width: 430px!important;
+	width: 375px!important;
 }
 .filter-input {
 	font-size: 1em;
@@ -165,6 +165,14 @@ ul li a, ul li {
 	display: flex;
 	flex-wrap: wrap;
 	justify-content: flex-start;
+}
+.recipes-empty-active {
+  display: initial!important;
+}
+.recipes-empty {
+  display: none;
+  width: 100%;
+  text-align: center;
 }
 
 /* item */
