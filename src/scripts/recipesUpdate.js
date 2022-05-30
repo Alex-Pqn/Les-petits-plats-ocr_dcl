@@ -40,36 +40,7 @@ export function updateRecipes () {
 	const isAppliancesFilterActive = () => applianceTags.length >= 1
 	const isIngredientsFilterActive = () => ingredientTags.length >= 1
   
-  if (isSearchFilterActive() || isUtensilsFilterActive() || isAppliancesFilterActive() || isIngredientsFilterActive()) {
-    const newActiveRecipes = recipes.filter(function (recipe) {
-     
-      // filterStep return true if : there is minimum 1 filter && recipe contains all the filters
-      const ingredientStep = isIngredientsFilterActive() && (ingredientTags.every(ingredient => recipe._newIngredients.includes(ingredient)))
-      const applianceStep = isAppliancesFilterActive() && (applianceTags.every(appliance => recipe._newAppliance.includes(appliance)))
-      const utensilStep = isUtensilsFilterActive() && (utensilTags.every(utensil => recipe._newUtensils.includes(utensil)))
-      
-      let searchStep = false
-
-      if (isSearchFilterActive()) {
-        // ingredients
-        // searchStep return true if recipe ingredients contains minimum one ingredient
-        if (recipe._newIngredients.some(ingredient => searchFilter.includes(ingredient))) searchStep = true
-        // name/title
-        // searchStep return true if recipe name match with search filter
-        if (recipe.newName.includes(searchFilter)) searchStep = true
-        // description
-        // searchStep return true if recipe description match with search filter
-        if (recipe.newDescription.includes(searchFilter)) searchStep = true 
-      }
-      
-      // steps validation
-      if (
-        (!isIngredientsFilterActive() || ingredientStep) && 
-        (!isAppliancesFilterActive() || applianceStep) && 
-        (!isUtensilsFilterActive() || utensilStep) &&
-        (!isSearchFilterActive() || searchStep)
-        ) return true
-    })
+  if (isSearchFilterActive() || isUtensilsFilterActive() || isAppliancesFilterActive() || isIngredientsFilterActive()) {      
     // push active recipes
     activeRecipes = newActiveRecipes
     reloadRecipes()
