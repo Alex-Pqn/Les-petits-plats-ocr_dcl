@@ -37,37 +37,47 @@ export function updateRecipes () {
 	const isIngredientsFilterActive = () => ingredientTags.length >= 1
   
   if (isSearchFilterActive() || isUtensilsFilterActive() || isAppliancesFilterActive() || isIngredientsFilterActive()) {
-    const newActiveRecipes = recipes.filter(function (recipe) {
+    const ingredientStep = isIngredientsFilterActive() && sortIngredientsFilter()
+    const applianceStep = isAppliancesFilterActive() && sortAppliancesFilter()
+    const utensilStep = isUtensilsFilterActive() && sortUtensilsFilter
+    const searchStep = false
+    
+    function sortIngredientsFilter () {
+      return true
+    }
+    function sortAppliancesFilter () {
+      return true
+    }
+    function sortUtensilsFilter () {
+      return true
+    }
+    
+    if (isSearchFilterActive()) {
+      
+    }
+    
+    // const newActiveRecipes = recipes.filter(function (recipe) {
      
-      /*
-        com ici
-      */
-      const ingredientStep = isIngredientsFilterActive() && (ingredientTags.every(ingredient => recipe._newIngredients.includes(ingredient)))
-      const applianceStep = isAppliancesFilterActive() && (applianceTags.every(appliance => recipe._newAppliance.includes(appliance)))
-      const utensilStep = isUtensilsFilterActive() && (utensilTags.every(utensil => recipe._newUtensils.includes(utensil)))
+    //   const ingredientStep = isIngredientsFilterActive() && (ingredientTags.every(ingredient => recipe._newIngredients.includes(ingredient)))
+    //   const applianceStep = isAppliancesFilterActive() && (applianceTags.every(appliance => recipe._newAppliance.includes(appliance)))
+    //   const utensilStep = isUtensilsFilterActive() && (utensilTags.every(utensil => recipe._newUtensils.includes(utensil)))
       
-      let searchStep = false
-      // décrire
-      if (isSearchFilterActive()) {
-        // ingredients
-        if (recipe._newIngredients.some(ingredient => searchFilter.includes(ingredient))) searchStep = true
-        // name/title
-        if (recipe.newName.includes(searchFilter)) searchStep = true
-        // description
-        if (recipe.newDescription.includes(searchFilter)) searchStep = true 
-      }
+    //   let searchStep = false
+    //   if (isSearchFilterActive()) {
+    //     if (recipe._newIngredients.some(ingredient => searchFilter.includes(ingredient))) searchStep = true
+    //     if (recipe.newName.includes(searchFilter)) searchStep = true
+    //     if (recipe.newDescription.includes(searchFilter)) searchStep = true 
+    //   }
       
-      // steps validation
-      if (
-        (!isIngredientsFilterActive() || ingredientStep) && 
-        (!isAppliancesFilterActive() || applianceStep) && 
-        (!isUtensilsFilterActive() || utensilStep) &&
-        (!isSearchFilterActive() || searchStep)
-        ) return true
-    })
-    // push active recipes
-    activeRecipes = newActiveRecipes
-    reloadRecipes()
+  if (
+    (!isIngredientsFilterActive() || ingredientStep) && 
+    (!isAppliancesFilterActive() || applianceStep) && 
+    (!isUtensilsFilterActive() || utensilStep) &&
+    (!isSearchFilterActive() || searchStep)
+    ) {
+      activeRecipes = newActiveRecipes
+      reloadRecipes()
+    }
   }
   else if (!isSearchFilterActive() && !isUtensilsFilterActive() && !isAppliancesFilterActive() && !isIngredientsFilterActive()) {
     // reinitialyze recipes
