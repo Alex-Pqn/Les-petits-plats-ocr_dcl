@@ -1,5 +1,4 @@
 
-
 // Tag ingredient template
 export function tagIngredientTemplate (ingredientTag) {
   const cardTemplate =
