@@ -21,7 +21,7 @@ const ingredientsModal = document.querySelector('.ingredient-filter-modal ul')
 const applianceModal = document.querySelector('.appliance-filter-modal ul')
 const utensilModal = document.querySelector('.utensil-filter-modal ul')
 
-window.addEventListener('load', (event) => {
+window.addEventListener('load', (e) => {
   activeUtensilFilters = Array.from(new Set(utensilFilters))
   activeApplianceFilters = Array.from(new Set(applianceFilters))
   activeIngredientFilters = Array.from(new Set(ingredientFilters))
@@ -162,9 +162,9 @@ export function insertAndUpdateUtensilFilters () {
   
   // display filters in modal
   activeUtensilFilters.forEach((activeUtensilFilter, i) => {
-    const maximumDisplayItems = 26
+    const maximumDisplayedItems = 26
     
-    if (i < maximumDisplayItems) {
+    if (i < maximumDisplayedItems) {
       const filterUtensilCard = filterUtensilTemplate(activeUtensilFilter)
       domToInsert += filterUtensilCard
     }
@@ -194,35 +194,3 @@ export function insertAndUpdateUtensilFilters () {
     })
   }
 }
-
-ingredientsInput.addEventListener('focusin', () => {
-  ingredientsModal.classList.add('filter-modal-active')
-  ingredientsInput.classList.add('filter-input-active')
-})
-applianceInput.addEventListener('focusin', () => {
-  applianceModal.classList.add('filter-modal-active')
-  applianceInput.classList.add('filter-input-active')
-})
-utensilInput.addEventListener('focusin', () => {
-  utensilModal.classList.add('filter-modal-active')
-  utensilInput.classList.add('filter-input-active')
-})
-
-document.addEventListener('click', (event) => {
-  const ingredientsContainer = document.getElementById('ingredient-filter')
-  const applianceContainer = document.getElementById('appliance-filter')
-  const utensilContainer = document.getElementById('utensil-filter')
-  
-  if (!event.path.includes(ingredientsContainer)) {
-    ingredientsModal.classList.remove('filter-modal-active')
-    ingredientsInput.classList.remove('filter-input-active')
-  }
-  if (!event.path.includes(applianceContainer)) {
-    applianceModal.classList.remove('filter-modal-active')
-    applianceInput.classList.remove('filter-input-active')
-  }
-  if (!event.path.includes(utensilContainer)) {
-    utensilModal.classList.remove('filter-modal-active')
-    utensilInput.classList.remove('filter-input-active')
-  }
-})

@@ -1,5 +1,4 @@
 
-
 // Filter ingredient template
 export function filterIngredientTemplate (ingredientFilter) {
   const cardTemplate =

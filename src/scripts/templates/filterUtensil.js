@@ -1,5 +1,4 @@
 
-
 // Filter utensil template
 export function filterUtensilTemplate (utensilFilter) {
   const cardTemplate =

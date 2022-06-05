@@ -1,5 +1,4 @@
 
-
 // Tag appliance template
 export function tagApplianceTemplate (applianceTag) {
   const cardTemplate =
