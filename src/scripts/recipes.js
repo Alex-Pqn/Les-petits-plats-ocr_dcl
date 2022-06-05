@@ -6,11 +6,10 @@ import { getRecipesData } from '../scripts/index'
 export let recipes = []
 
 /**
- * display recipes
- * @param {Array.<{utensilFilters: [], applianceFilters: [], ingredientFilters: []}>} recipes 
- * @param {*} filters 
+ * Display recipes
+ * @param {Array.<{utensilFilters: [], applianceFilters: [], ingredientFilters: []}>} 
  */
-function displayRecipes (recipesData, filters) {
+function displayRecipes (recipesData) {
 	const recipesSection = document.querySelector('.recipes-items');
 
 	recipesData.forEach(recipe => {

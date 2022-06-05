@@ -1,6 +1,10 @@
 import { utensilFilters, applianceFilters, ingredientFilters, activeUtensilFilters, activeApplianceFilters, activeIngredientFilters, resetApplianceFilters, resetUtensilFilters, resetIngredientFilters } from '../scripts/filters'
 import { insertAndUpdateApplianceFilters, insertAndUpdateUtensilFilters, insertAndUpdateIngredientFilters } from '../scripts/filters'
 
+/**
+ * Update ingredient filters modal
+ * @param {String} searchInput 
+ */
 export function updateIngredientFiltersModal (searchInput) {
   if (searchInput) {
     // filter ingredients by search input
@@ -22,6 +26,10 @@ export function updateIngredientFiltersModal (searchInput) {
   }
 } 
 
+/**
+ * Update utensil filters modal
+ * @param {String} searchInput 
+ */
 export function updateUtensilFiltersModal (searchInput) {
   if (searchInput) {
     // filter utensils by search input
@@ -43,6 +51,10 @@ export function updateUtensilFiltersModal (searchInput) {
   }
 } 
 
+/**
+ * Update appliance filters modal
+ * @param {String} searchInput 
+ */
 export function updateApplianceFiltersModal (searchInput) {
   if (searchInput) {
     // filter appliances by search input

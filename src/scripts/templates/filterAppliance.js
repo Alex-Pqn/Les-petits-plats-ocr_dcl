@@ -1,3 +1,4 @@
+
 // Filter appliance template
 export const filterApplianceTemplate = (applianceFilter) => 
   `<li class="appliance-filter-item">
