@@ -147,4 +147,4 @@ export function updateRecipes() {
   }
 }
 
-reloadRecipes.window = reloadRecipes;
+window.updateRecipes = updateRecipes;
