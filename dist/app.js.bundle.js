@@ -70,7 +70,7 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpac
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"getRecipesData\": () => (/* binding */ getRecipesData)\n/* harmony export */ });\n// Get data in recipes.json\r\nasync function getRecipesData() {\r\n  const response = await fetch('../../data/recipes.json');\r\n  const recipesData = await response.json();\r\n\r\n  return recipesData;\r\n}\r\n\n\n//# sourceURL=webpack://les-petits-plats/./src/scripts/index.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"getRecipesData\": () => (/* binding */ getRecipesData)\n/* harmony export */ });\n// Get data in recipes.json\r\nasync function getRecipesData() {\r\n  const response = await fetch('./../../data/recipes.json');\r\n  const recipesData = await response.json();\r\n\r\n  return recipesData;\r\n}\r\n\n\n//# sourceURL=webpack://les-petits-plats/./src/scripts/index.js?");
 
 /***/ }),
 
