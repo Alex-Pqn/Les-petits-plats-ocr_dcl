@@ -146,3 +146,5 @@ export function updateRecipes() {
     reloadRecipes();
   }
 }
+
+reloadRecipes.window = reloadRecipes;
