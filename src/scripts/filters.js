@@ -1,196 +1,238 @@
-import { pushApplianceTag, pushIngredientTag, pushUtensilTag } from '../scripts/tags'
-import { updateIngredientFiltersModal, updateApplianceFiltersModal, updateUtensilFiltersModal } from '../scripts/filtersSearch'
-import { filterApplianceTemplate } from '../scripts/templates/filterAppliance'
-import { filterIngredientTemplate } from '../scripts/templates/filterIngredient'
-import { filterUtensilTemplate } from '../scripts/templates/filterUtensil'
-import { getNormalizedString } from '../scripts/global'
+import {
+  pushApplianceTag,
+  pushIngredientTag,
+  pushUtensilTag,
+} from '../scripts/tags';
+import {
+  updateIngredientFiltersModal,
+  updateApplianceFiltersModal,
+  updateUtensilFiltersModal,
+} from '../scripts/filtersSearch';
+import { filterApplianceTemplate } from '../scripts/templates/filterAppliance';
+import { filterIngredientTemplate } from '../scripts/templates/filterIngredient';
+import { filterUtensilTemplate } from '../scripts/templates/filterUtensil';
+import { getNormalizedString } from '../scripts/global';
 
-export let utensilFilters = []
-export let applianceFilters = []
-export let ingredientFilters = []
+export let utensilFilters = [];
+export let applianceFilters = [];
+export let ingredientFilters = [];
 
-export let activeUtensilFilters
-export let activeApplianceFilters
-export let activeIngredientFilters
+export let activeUtensilFilters;
+export let activeApplianceFilters;
+export let activeIngredientFilters;
 
-const ingredientsInput = document.getElementById('ingredient-input')
-const applianceInput = document.getElementById('appliance-input')
-const utensilInput = document.getElementById('utensil-input')
+const ingredientsInput = document.getElementById('ingredient-input');
+const applianceInput = document.getElementById('appliance-input');
+const utensilInput = document.getElementById('utensil-input');
 
-const ingredientsModal = document.querySelector('.ingredient-filter-modal ul')
-const applianceModal = document.querySelector('.appliance-filter-modal ul')
-const utensilModal = document.querySelector('.utensil-filter-modal ul')
+const ingredientsModal = document.querySelector('.ingredient-filter-modal ul');
+const applianceModal = document.querySelector('.appliance-filter-modal ul');
+const utensilModal = document.querySelector('.utensil-filter-modal ul');
 
 window.addEventListener('load', (e) => {
-  activeUtensilFilters = Array.from(new Set(utensilFilters))
-  activeApplianceFilters = Array.from(new Set(applianceFilters))
-  activeIngredientFilters = Array.from(new Set(ingredientFilters))
-  
-  insertAndUpdateApplianceFilters()
-  insertAndUpdateIngredientFilters()
-  insertAndUpdateUtensilFilters()
-  
+  activeUtensilFilters = Array.from(new Set(utensilFilters));
+  activeApplianceFilters = Array.from(new Set(applianceFilters));
+  activeIngredientFilters = Array.from(new Set(ingredientFilters));
+
+  insertAndUpdateApplianceFilters();
+  insertAndUpdateIngredientFilters();
+  insertAndUpdateUtensilFilters();
+
   ingredientsInput.addEventListener('input', (event) => {
-    const ingredientsInputSearch = event.target.value
-    updateIngredientFiltersModal(ingredientsInputSearch)
-  })
+    const ingredientsInputSearch = event.target.value;
+    updateIngredientFiltersModal(ingredientsInputSearch);
+  });
   applianceInput.addEventListener('input', (event) => {
-    const appliancesInputSearch = event.target.value
-    updateApplianceFiltersModal(appliancesInputSearch)
-  })
+    const appliancesInputSearch = event.target.value;
+    updateApplianceFiltersModal(appliancesInputSearch);
+  });
   utensilInput.addEventListener('input', (event) => {
-    const utensilsInputSearch = event.target.value
-    updateUtensilFiltersModal(utensilsInputSearch)
-  })
+    const utensilsInputSearch = event.target.value;
+    updateUtensilFiltersModal(utensilsInputSearch);
+  });
 });
 
-export function resetIngredientFilters () {
-  activeIngredientFilters = ingredientFilters
+export function resetIngredientFilters() {
+  activeIngredientFilters = ingredientFilters;
 }
-export function resetUtensilFilters () {
-  activeUtensilFilters = utensilFilters
+export function resetUtensilFilters() {
+  activeUtensilFilters = utensilFilters;
 }
-export function resetApplianceFilters () {
-  activeApplianceFilters = applianceFilters
+export function resetApplianceFilters() {
+  activeApplianceFilters = applianceFilters;
 }
 
-export function insertAndUpdateApplianceFilters () {
-  const applianceFilterItems = document.getElementsByClassName('appliance-filter-item')
-  
-  for (let i = 0; i < applianceFilterItems.length; i++) applianceFilterItems[i].remove()
-  let domToInsert = ''
+export function insertAndUpdateApplianceFilters() {
+  const applianceFilterItems = document.getElementsByClassName(
+    'appliance-filter-item'
+  );
+
+  for (let i = 0; i < applianceFilterItems.length; i++)
+    applianceFilterItems[i].remove();
+  let domToInsert = '';
 
   // alphabetic sort & prevent duplication with Set
-  const applianceFiltersSet = new Set(Array.from(applianceFilters).sort((a, b) => a.localeCompare(b)))
-  applianceFilters = Array.from(applianceFiltersSet)
-  
-  activeApplianceFilters = activeApplianceFilters.sort((a, b) => a.localeCompare(b))
-  
+  const applianceFiltersSet = new Set(
+    Array.from(applianceFilters).sort((a, b) => a.localeCompare(b))
+  );
+  applianceFilters = Array.from(applianceFiltersSet);
+
+  activeApplianceFilters = activeApplianceFilters.sort((a, b) =>
+    a.localeCompare(b)
+  );
+
   // display filters in modal
   activeApplianceFilters.forEach((activeApplianceFilter, i) => {
-    const maximumDisplayedItems = 26
-    
+    const maximumDisplayedItems = 26;
+
     if (i < maximumDisplayedItems) {
-      const filterApplianceCard = filterApplianceTemplate(activeApplianceFilter)
-      domToInsert += filterApplianceCard
+      const filterApplianceCard = filterApplianceTemplate(
+        activeApplianceFilter
+      );
+      domToInsert += filterApplianceCard;
     }
   });
-  applianceModal.innerHTML = domToInsert
-  
+  applianceModal.innerHTML = domToInsert;
+
   // reset active appliance filters
-  activeApplianceFilters = []
+  activeApplianceFilters = [];
 
   // add event listeners
   for (let i = 0; i < applianceFilterItems.length; i++) {
     applianceFilterItems[i].addEventListener('click', (event) => {
-        const applianceName = getNormalizedString(event.target.textContent)
-        
-        // push filter to tags list
-        pushApplianceTag(applianceName)
-        
-        // remove filter from filters list
-        if (applianceFilters.includes(applianceName)) {
-          applianceFilters.splice(applianceFilters.indexOf(applianceName), 1)
-          for (let i = 0; i < applianceFilterItems.length; i++) {
-            if (getNormalizedString(applianceFilterItems[i].textContent) === applianceName) {
-              applianceFilterItems[i].remove()
-            }
+      const applianceName = getNormalizedString(event.target.textContent);
+
+      // push filter to tags list
+      pushApplianceTag(applianceName);
+
+      // remove filter from filters list
+      if (applianceFilters.includes(applianceName)) {
+        applianceFilters.splice(applianceFilters.indexOf(applianceName), 1);
+        for (let i = 0; i < applianceFilterItems.length; i++) {
+          if (
+            getNormalizedString(applianceFilterItems[i].textContent) ===
+            applianceName
+          ) {
+            applianceFilterItems[i].remove();
           }
         }
-    })
+      }
+    });
   }
 }
 
-export function insertAndUpdateIngredientFilters () {
-  const ingredientFilterItems = document.getElementsByClassName('ingredient-filter-item')
+export function insertAndUpdateIngredientFilters() {
+  const ingredientFilterItems = document.getElementsByClassName(
+    'ingredient-filter-item'
+  );
 
-  for (let i = 0; i < ingredientFilterItems.length; i++) ingredientFilterItems[i].remove()
-  let domToInsert = ""
+  for (let i = 0; i < ingredientFilterItems.length; i++)
+    ingredientFilterItems[i].remove();
+  let domToInsert = '';
 
   // alphabetic sort & prevent duplication with Set
-  const ingredientFiltersSet = new Set(Array.from(ingredientFilters).sort((a, b) => a.localeCompare(b)))
-  ingredientFilters = Array.from(ingredientFiltersSet)
-  
-  activeIngredientFilters = activeIngredientFilters.sort((a, b) => a.localeCompare(b))
-  
+  const ingredientFiltersSet = new Set(
+    Array.from(ingredientFilters).sort((a, b) => a.localeCompare(b))
+  );
+  ingredientFilters = Array.from(ingredientFiltersSet);
+
+  activeIngredientFilters = activeIngredientFilters.sort((a, b) =>
+    a.localeCompare(b)
+  );
+
   // display filters in modal
   activeIngredientFilters.forEach((activeIngredientFilter, i) => {
-    const maximumDisplayedItems = 26
-    
+    const maximumDisplayedItems = 26;
+
     if (i < maximumDisplayedItems) {
-      const filterIngredientCard = filterIngredientTemplate(activeIngredientFilter)
-      domToInsert += filterIngredientCard
+      const filterIngredientCard = filterIngredientTemplate(
+        activeIngredientFilter
+      );
+      domToInsert += filterIngredientCard;
     }
   });
-  ingredientsModal.innerHTML = domToInsert
-  
+  ingredientsModal.innerHTML = domToInsert;
+
   // reset active ingredient filters
-  activeIngredientFilters = []
-  
+  activeIngredientFilters = [];
+
   // add event listeners
   for (let i = 0; i < ingredientFilterItems.length; i++) {
     ingredientFilterItems[i].addEventListener('click', (event) => {
-      const ingredientName = getNormalizedString(event.target.textContent)
-      
+      const ingredientName = getNormalizedString(event.target.textContent);
+
       // push filter to tags list
-      pushIngredientTag(ingredientName)
+      pushIngredientTag(ingredientName);
 
       // remove filter from filters list
       if (ingredientFilters.includes(ingredientName)) {
-        ingredientFilters.splice(ingredientFilters.indexOf(ingredientName), 1)
+        ingredientFilters.splice(ingredientFilters.indexOf(ingredientName), 1);
         for (let i = 0; i < ingredientFilterItems.length; i++) {
-          if (getNormalizedString(ingredientFilterItems[i].textContent) === ingredientName) {
-            ingredientFilterItems[i].remove()
+          if (
+            getNormalizedString(ingredientFilterItems[i].textContent) ===
+            ingredientName
+          ) {
+            ingredientFilterItems[i].remove();
           }
         }
       }
-    })
+    });
   }
 }
 
-export function insertAndUpdateUtensilFilters () {
-  const utensilFilterItems = document.getElementsByClassName('utensil-filter-item')
-  
-  for (let i = 0; i < utensilFilterItems.length; i++) utensilFilterItems[i].remove()
-  let domToInsert = ""
+export function insertAndUpdateUtensilFilters() {
+  const utensilFilterItems = document.getElementsByClassName(
+    'utensil-filter-item'
+  );
+
+  for (let i = 0; i < utensilFilterItems.length; i++)
+    utensilFilterItems[i].remove();
+  let domToInsert = '';
 
   // alphabetic sort & prevent duplication with Set
-  const utensilFiltersSet = new Set (Array.from(utensilFilters).sort((a, b) => a.localeCompare(b)))
-  utensilFilters = Array.from(utensilFiltersSet)
-  
-  activeUtensilFilters = activeUtensilFilters.sort((a, b) => a.localeCompare(b))
-  
+  const utensilFiltersSet = new Set(
+    Array.from(utensilFilters).sort((a, b) => a.localeCompare(b))
+  );
+  utensilFilters = Array.from(utensilFiltersSet);
+
+  activeUtensilFilters = activeUtensilFilters.sort((a, b) =>
+    a.localeCompare(b)
+  );
+
   // display filters in modal
   activeUtensilFilters.forEach((activeUtensilFilter, i) => {
-    const maximumDisplayedItems = 26
-    
+    const maximumDisplayedItems = 26;
+
     if (i < maximumDisplayedItems) {
-      const filterUtensilCard = filterUtensilTemplate(activeUtensilFilter)
-      domToInsert += filterUtensilCard
+      const filterUtensilCard = filterUtensilTemplate(activeUtensilFilter);
+      domToInsert += filterUtensilCard;
     }
   });
-  utensilModal.innerHTML = domToInsert
-  
+  utensilModal.innerHTML = domToInsert;
+
   // reset active utensil filters
-  activeUtensilFilters = []
-  
+  activeUtensilFilters = [];
+
   // add event listeners
   for (let i = 0; i < utensilFilterItems.length; i++) {
     utensilFilterItems[i].addEventListener('click', (event) => {
-      const utensilName = getNormalizedString(event.target.textContent)
-      
+      const utensilName = getNormalizedString(event.target.textContent);
+
       // push filter to tags list
-      pushUtensilTag(utensilName)
+      pushUtensilTag(utensilName);
 
       // remove filter from filters list
       if (utensilFilters.includes(utensilName)) {
-        utensilFilters.splice(utensilFilters.indexOf(utensilName), 1)
+        utensilFilters.splice(utensilFilters.indexOf(utensilName), 1);
         for (let i = 0; i < utensilFilterItems.length; i++) {
-          if (getNormalizedString(utensilFilterItems[i].textContent) === utensilName) {
-            utensilFilterItems[i].remove()
+          if (
+            getNormalizedString(utensilFilterItems[i].textContent) ===
+            utensilName
+          ) {
+            utensilFilterItems[i].remove();
           }
         }
       }
-    })
+    });
   }
 }
