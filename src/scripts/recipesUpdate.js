@@ -47,84 +47,39 @@ export function updateRecipes() {
     isAppliancesFilterActive() ||
     isIngredientsFilterActive()
   ) {
-    const newActiveRecipes = [];
-
-    for (let i = 0; i < recipes.length; i++) {
-      const recipe = recipes[i];
-
+    const newActiveRecipes = recipes.filter(function (recipe) {
+      // filterStep return true if : there is minimum 1 filter && recipe contains all the filters
       const ingredientStep =
-        isIngredientsFilterActive() && isRecipeContainsIngredientsTags();
+        isIngredientsFilterActive() &&
+        ingredientTags.every((ingredient) =>
+          recipe._newIngredients.includes(ingredient)
+        );
       const applianceStep =
-        isAppliancesFilterActive() && isRecipeContainsAppliancesTags();
+        isAppliancesFilterActive() &&
+        applianceTags.every((appliance) =>
+          recipe._newAppliance.includes(appliance)
+        );
       const utensilStep =
-        isUtensilsFilterActive() && isRecipeContainsUtensilsTags();
-
-      // return true if recipe ingredients contains all the ingredient tags
-      function isRecipeContainsIngredientsTags() {
-        let isRecipeContainsTags = true;
-
-        for (const ingredientTag of ingredientTags) {
-          for (const [
-            i,
-            recipeIngredient,
-          ] of recipe._newIngredients.entries()) {
-            // ingredient tag match with recipe ingredients
-            if (ingredientTag === recipeIngredient) break;
-
-            // last iteration & no one match
-            if (i === recipe._newIngredients.length - 1) {
-              isRecipeContainsTags = false;
-            }
-          }
-        }
-        return isRecipeContainsTags;
-      }
-
-      // return true if recipe appliance match with all the appliance tags
-      function isRecipeContainsAppliancesTags() {
-        let isRecipeContainsTags = true;
-
-        for (const applianceTag of applianceTags) {
-          // appliance tag didn't match with recipe appliance
-          if (applianceTag !== recipe._newAppliance)
-            isRecipeContainsTags = false;
-        }
-        return isRecipeContainsTags;
-      }
-
-      // return true if recipe utensils contains all the utensil tags
-      function isRecipeContainsUtensilsTags() {
-        let isRecipeContainsTags = true;
-
-        for (const utensilTag of utensilTags) {
-          for (const [i, recipeUtensil] of recipe._newUtensils.entries()) {
-            // utensil tag match with recipe utensils
-            if (utensilTag === recipeUtensil) break;
-
-            // last iteration & no one match
-            if (i === recipe._newUtensils.length - 1) {
-              isRecipeContainsTags = false;
-            }
-          }
-        }
-        return isRecipeContainsTags;
-      }
+        isUtensilsFilterActive() &&
+        utensilTags.every((utensil) => recipe._newUtensils.includes(utensil));
 
       let searchStep = false;
 
       if (isSearchFilterActive()) {
         // ingredients
         // searchStep return true if recipe ingredients contains minimum one ingredient
-        for (const recipeIngredient of recipe._newIngredients)
-          if (recipeIngredient === searchFilter) searchStep = true;
-
+        if (
+          recipe._newIngredients.some((ingredient) =>
+            searchFilter.includes(ingredient)
+          )
+        )
+          searchStep = true;
         // name/title
         // searchStep return true if recipe name match with search filter
-        if (recipe.newName === searchFilter) searchStep = true;
-
+        if (recipe.newName.includes(searchFilter)) searchStep = true;
         // description
         // searchStep return true if recipe description match with search filter
-        if (recipe.newDescription === searchFilter) searchStep = true;
+        if (recipe.newDescription.includes(searchFilter)) searchStep = true;
       }
 
       // steps validation
@@ -134,13 +89,17 @@ export function updateRecipes() {
         (!isUtensilsFilterActive() || utensilStep) &&
         (!isSearchFilterActive() || searchStep)
       )
-        newActiveRecipes.push(recipe);
-    }
-
+        return true;
+    });
     // push active recipes
     activeRecipes = newActiveRecipes;
     reloadRecipes();
-  } else {
+  } else if (
+    !isSearchFilterActive() &&
+    !isUtensilsFilterActive() &&
+    !isAppliancesFilterActive() &&
+    !isIngredientsFilterActive()
+  ) {
     // reinitialyze recipes
     activeRecipes = recipes;
     reloadRecipes();
