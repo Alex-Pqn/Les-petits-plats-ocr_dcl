@@ -1,5 +1,5 @@
-const glob = require('glob')
-const path = require('path')
+const glob = require('glob');
+const path = require('path');
 
 // class css
 // event listeners
@@ -7,10 +7,10 @@ const path = require('path')
 module.exports = {
   mode: 'development',
   entry: {
-    'app.js': glob.sync("./src/**/*.js")
+    'app.js': glob.sync('./src/**/*.js'),
   },
   output: {
-    filename: "[name].bundle.js",
-    path: path.resolve(__dirname, "dist")
+    filename: '[name].bundle.js',
+    path: path.resolve(__dirname, 'dist'),
   },
 };
