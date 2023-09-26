@@ -105,3 +105,5 @@ export function updateRecipes() {
     reloadRecipes();
   }
 }
+
+window.updateRecipes = updateRecipes;
