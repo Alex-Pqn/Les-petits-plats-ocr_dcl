@@ -40,7 +40,7 @@ Dans un long email que Sandra vous envoie, vous retenez ces différents points :
 
 ### Start App
 
-Open the [index.html](/src/pages/index.html) file in your browser or use an extension to start a local server on this file.
+Open the [index.html](./index.html) file in your browser or use an extension to start a local server on this file.
 
 > A [Github Pages preview](https://alex-pqn.github.io/Les-petits-plats-ocr_dcl/) is also available for this project
 
