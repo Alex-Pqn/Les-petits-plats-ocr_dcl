@@ -39,7 +39,7 @@ Clone the project then open the [index.html](./index.html) file in your browser 
 
 ## Project setup (optional)
 
-- You will need to have Node and `npm` installed locally on your machine.
+You will need to have Node and `npm` installed locally on your machine.
 
 ### Install
 ```
