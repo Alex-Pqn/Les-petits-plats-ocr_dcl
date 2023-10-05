@@ -30,23 +30,20 @@ Dans un long email que Sandra vous envoie, vous retenez ces différents points :
 
 ### [Prévisualisation du site](https://alex-pqn.github.io/Les-petits-plats-ocr_dcl/)
 
----
-
-### Prerequisites
+## Prerequisites
 
 - You will need to have Node and `npm` installed locally on your machine.
 
----
-
-### Start App
+## Start App
 
 Clone the project then open the [index.html](./index.html) file in your browser or use an extension to start a local server on this file.
 
+> [!NOTE]  
 > A [Github Pages preview](https://alex-pqn.github.io/Les-petits-plats-ocr_dcl/) is also available for this project
 
----
-
 ## Project setup
+
+### Install
 ```
 npm install
 ```
@@ -61,12 +58,10 @@ npm run watch
 npm run build
 ```
 
----
+## Preview
 
-### Preview
-
-![CV](/src/assets/Les%20petits%20plats%202.png)
+![Les petits plats](/src/assets/Les%20petits%20plats%202.png)
 <br/>
 <br/>
 <br/>
-![CV](/src/assets/Les%20petits%20plats.png)
+![Les petits plats](/src/assets/Les%20petits%20plats.png)
