@@ -21,7 +21,7 @@ Dans un long email que Sandra vous envoie, vous retenez ces différents points :
 
 - Rédaction d'un document appelé "fiche d’investigation de fonctionnalité" comparant les deux versions de l'algorithme, accompagné d'un algorigramme.
 
-#### Objectifs
+#### Objectifs réalisés
 - Site web créé en HTML5/CSS3 & Javascript
 - Création d'une branche [functional-algo](https://github.com/Alex-Pqn/Les-petits-plats-ocr_dcl/tree/functional-algo) et [native-algo](https://github.com/Alex-Pqn/Les-petits-plats-ocr_dcl/tree/native-algo) regroupant les deux versions de l'algorithme de recherche. La branche principale contient la version la plus performante des deux.
 - Rédaction de la [fiche d’investigation de fonctionnalité](/src/assets/Fiche%20d'investigation.pdf)
