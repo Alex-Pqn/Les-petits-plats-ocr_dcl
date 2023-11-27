@@ -1,32 +1,32 @@
-import { utensilTags, applianceTags, ingredientTags } from '../scripts/tags';
-import { recipeTemplate } from '../scripts/templates/recipe';
-import { recipes } from '../scripts/recipes';
+import { utensilTags, applianceTags, ingredientTags } from '../scripts/tags'
+import { recipeTemplate } from '../scripts/templates/recipe'
+import { recipes } from '../scripts/recipes'
 
-const searchInput = document.getElementById('search-input');
+const searchInput = document.getElementById('search-input')
 
-let searchFilter = '';
-let activeRecipes = recipes;
+let searchFilter = ''
+let activeRecipes = recipes
 
 searchInput.addEventListener('input', (event) => {
-  searchFilter = event.target.value.toLowerCase();
-  updateRecipes();
-});
+  searchFilter = event.target.value.toLowerCase()
+  updateRecipes()
+})
 
 function reloadRecipes() {
-  const recipesSection = document.querySelector('.recipes-items');
-  const recipeItems = document.querySelectorAll('.recipes-item');
-  const recipesEmpty = document.querySelector('.recipes-empty');
+  const recipesSection = document.querySelector('.recipes-items')
+  const recipeItems = document.querySelectorAll('.recipes-item')
+  const recipesEmpty = document.querySelector('.recipes-empty')
 
-  recipeItems.forEach((recipe) => recipe.remove());
+  recipeItems.forEach((recipe) => recipe.remove())
 
   if (activeRecipes.length === 0)
-    recipesEmpty.classList.add('recipes-empty-active');
-  else recipesEmpty.classList.remove('recipes-empty-active');
+    recipesEmpty.classList.add('recipes-empty-active')
+  else recipesEmpty.classList.remove('recipes-empty-active')
 
   activeRecipes.forEach((recipe) => {
-    const recipeCardDOM = recipeTemplate(recipe);
-    recipesSection.insertAdjacentHTML('beforeend', recipeCardDOM);
-  });
+    const recipeCardDOM = recipeTemplate(recipe)
+    recipesSection.insertAdjacentHTML('beforeend', recipeCardDOM)
+  })
 }
 
 /**
@@ -36,10 +36,10 @@ function reloadRecipes() {
  * @param {Array} ingredientTags
  */
 export function updateRecipes() {
-  const isSearchFilterActive = () => searchFilter.length >= 3;
-  const isUtensilsFilterActive = () => utensilTags.length >= 1;
-  const isAppliancesFilterActive = () => applianceTags.length >= 1;
-  const isIngredientsFilterActive = () => ingredientTags.length >= 1;
+  const isSearchFilterActive = () => searchFilter.length >= 3
+  const isUtensilsFilterActive = () => utensilTags.length >= 1
+  const isAppliancesFilterActive = () => applianceTags.length >= 1
+  const isIngredientsFilterActive = () => ingredientTags.length >= 1
 
   if (
     isSearchFilterActive() ||
@@ -53,17 +53,17 @@ export function updateRecipes() {
         isIngredientsFilterActive() &&
         ingredientTags.every((ingredient) =>
           recipe._newIngredients.includes(ingredient)
-        );
+        )
       const applianceStep =
         isAppliancesFilterActive() &&
         applianceTags.every((appliance) =>
           recipe._newAppliance.includes(appliance)
-        );
+        )
       const utensilStep =
         isUtensilsFilterActive() &&
-        utensilTags.every((utensil) => recipe._newUtensils.includes(utensil));
+        utensilTags.every((utensil) => recipe._newUtensils.includes(utensil))
 
-      let searchStep = false;
+      let searchStep = false
 
       if (isSearchFilterActive()) {
         // ingredients
@@ -73,13 +73,13 @@ export function updateRecipes() {
             searchFilter.includes(ingredient)
           )
         )
-          searchStep = true;
+          searchStep = true
         // name/title
         // searchStep return true if recipe name match with search filter
-        if (recipe.newName.includes(searchFilter)) searchStep = true;
+        if (recipe.newName.includes(searchFilter)) searchStep = true
         // description
         // searchStep return true if recipe description match with search filter
-        if (recipe.newDescription.includes(searchFilter)) searchStep = true;
+        if (recipe.newDescription.includes(searchFilter)) searchStep = true
       }
 
       // steps validation
@@ -89,11 +89,11 @@ export function updateRecipes() {
         (!isUtensilsFilterActive() || utensilStep) &&
         (!isSearchFilterActive() || searchStep)
       )
-        return true;
-    });
+        return true
+    })
     // push active recipes
-    activeRecipes = newActiveRecipes;
-    reloadRecipes();
+    activeRecipes = newActiveRecipes
+    reloadRecipes()
   } else if (
     !isSearchFilterActive() &&
     !isUtensilsFilterActive() &&
@@ -101,9 +101,9 @@ export function updateRecipes() {
     !isIngredientsFilterActive()
   ) {
     // reinitialyze recipes
-    activeRecipes = recipes;
-    reloadRecipes();
+    activeRecipes = recipes
+    reloadRecipes()
   }
 }
 
-window.updateRecipes = updateRecipes;
+window.updateRecipes = updateRecipes

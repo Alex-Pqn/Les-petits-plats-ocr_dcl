@@ -1,38 +1,40 @@
-import { Recipe } from '../scripts/class/recipe';
-import { recipeTemplate } from '../scripts/templates/recipe';
-import {
-  utensilFilters,
-  applianceFilters,
-  ingredientFilters,
-} from '../scripts/filters';
-import { getRecipesData } from '../scripts/index';
+import { Recipe } from '../scripts/class/recipe'
+import { recipeTemplate } from '../scripts/templates/recipe'
+import { initFilters } from '../scripts/filters'
+import { getRecipesData } from '../scripts/index'
 
-export let recipes = [];
+export let recipes = []
 
 /**
  * Display recipes
  * @param {Array.<{utensilFilters: [], applianceFilters: [], ingredientFilters: []}>}
  */
 function displayRecipes(recipesData) {
-  const recipesSection = document.querySelector('.recipes-items');
+  const recipesSection = document.querySelector('.recipes-items')
+
+  const utensils = []
+  const appliances = []
+  const ingredients = []
 
   recipesData.forEach((recipe) => {
-    const newRecipe = new Recipe(recipe);
-    const recipeCardDOM = recipeTemplate(newRecipe);
-    recipesSection.insertAdjacentHTML('beforeend', recipeCardDOM);
+    const newRecipe = new Recipe(recipe)
+    const recipeCardDOM = recipeTemplate(newRecipe)
+    recipesSection.insertAdjacentHTML('beforeend', recipeCardDOM)
 
-    utensilFilters.push(...newRecipe['newUtensils']);
-    applianceFilters.push(newRecipe.newAppliance);
-    ingredientFilters.push(...newRecipe['newIngredients']);
+    utensils.push(...newRecipe['newUtensils'])
+    appliances.push(newRecipe.newAppliance)
+    ingredients.push(...newRecipe['newIngredients'])
 
-    recipes.push(newRecipe);
-  });
+    recipes.push(newRecipe)
+  })
+
+  initFilters(utensils, appliances, ingredients)
 }
 
 async function init() {
-  const recipesData = await getRecipesData();
+  const recipesData = await getRecipesData()
 
-  displayRecipes(recipesData);
+  displayRecipes(recipesData)
 }
 
-init();
+init()

@@ -1,8 +1,8 @@
 // Recipe template
 export function recipeTemplate(newRecipe) {
-  const { _name, _description, _time, _ingredients } = newRecipe;
+  const { _name, _description, _time, _ingredients } = newRecipe
 
-  let ingrendientsTemplate = ``;
+  let ingrendientsTemplate = ``
 
   // iterate ingredients and put them in template
   _ingredients.forEach((ingredient) => {
@@ -15,10 +15,10 @@ export function recipeTemplate(newRecipe) {
       ingredient.quantity && ingredient.unit ? ingredient.unit : ''
     }
       </li>
-		`;
+		`
 
-    ingrendientsTemplate = ingrendientsTemplate + ingredientTemplate;
-  });
+    ingrendientsTemplate = ingrendientsTemplate + ingredientTemplate
+  })
 
   const cardTemplate = `
   <article class="recipes-item">
@@ -45,7 +45,7 @@ export function recipeTemplate(newRecipe) {
         </div>
     </div>
 	</article>
-  `;
+  `
 
-  return cardTemplate;
+  return cardTemplate
 }

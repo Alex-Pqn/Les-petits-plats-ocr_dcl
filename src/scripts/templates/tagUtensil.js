@@ -4,7 +4,7 @@ export function tagUtensilTemplate(utensilTag) {
     <a class="utensil-tag-item-remove" href='#!'>
       <i class="far fa-times-circle"></i>
     </a>
-  </li>`;
+  </li>`
 
-  return cardTemplate;
+  return cardTemplate
 }

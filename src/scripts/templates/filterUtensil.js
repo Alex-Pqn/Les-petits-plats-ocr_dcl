@@ -2,7 +2,7 @@
 export function filterUtensilTemplate(utensilFilter) {
   const cardTemplate = `<li class="utensil-filter-item">
     <a href='#!'>${utensilFilter}</a>
-  </li>`;
+  </li>`
 
-  return cardTemplate;
+  return cardTemplate
 }

@@ -4,7 +4,7 @@ export function tagApplianceTemplate(applianceTag) {
     <a class="appliance-tag-item-remove" href='#!'>
       <i class="far fa-times-circle"></i>
     </a>
-  </li>`;
+  </li>`
 
-  return cardTemplate;
+  return cardTemplate
 }
